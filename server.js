@@ -1,28 +1,12 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const handlerPath = path.join(__dirname, 'dist', 'server', 'assets', 'worker-entry-CMa38TVC.js');
 const assetsDir = path.join(__dirname, 'dist', 'client', 'assets');
 
-async function toWebRequest(req) {
-  const url = new URL(req.url, `http://${req.headers.host}`);
-  const init = {
-    method: req.method,
-    headers: req.headers,
-    body: req.method === 'GET' || req.method === 'HEAD' ? undefined : req,
-  };
-  return new Request(url, init);
-}
-
-function toWebResponse(nodeRes, webRes) {
-  nodeRes.statusCode = webRes.status;
-  const contentType = webRes.headers.get('content-type');
-  if (contentType) nodeRes.setHeader('content-type', contentType);
-  return webRes.arrayBuffer().then(buf => {
-    nodeRes.end(Buffer.from(buf));
-  });
-}
-
-module.exports = async function (req, res) {
+export default async function (req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (url.pathname === '/' || url.pathname.endsWith('.html')) {
@@ -50,10 +34,14 @@ module.exports = async function (req, res) {
     return;
   }
 
-  const webReq = await toWebRequest(req);
-  const mod = require(handlerPath);
+  const mod = await import(handlerPath);
   const handler = mod?.w ?? mod?.default ?? mod;
   const fetchFn = handler?.fetch ?? handler;
-  const webRes = await fetchFn(webReq, {}, {});
-  await toWebResponse(res, webRes);
-};
+
+  const response = await fetchFn(req, {}, {});
+  res.statusCode = response.status;
+  const contentType = response.headers.get('content-type');
+  if (contentType) res.setHeader('content-type', contentType);
+  const buf = Buffer.from(await response.arrayBuffer());
+  res.end(buf);
+}
