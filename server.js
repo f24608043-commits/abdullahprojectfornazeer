@@ -1,10 +1,14 @@
 const path = require('path');
+
 const handlerPath = path.join(__dirname, 'dist', 'server', 'assets', 'worker-entry-CMa38TVC.js');
 
 module.exports = async function (req, res) {
-  const handler = require(handlerPath);
+  // eslint-disable-next-line import/no-dynamic-require
+  const mod = require(handlerPath);
 
-  const fetchFn = handler?.default ?? handler;
+  const handler = mod?.w ?? mod?.default ?? mod;
+
+  const fetchFn = handler?.fetch ?? handler;
 
   const response = await fetchFn(
     new Request(`${req.protocol}://${req.headers.host}${req.url}`, {

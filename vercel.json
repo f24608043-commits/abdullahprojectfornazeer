@@ -5,6 +5,10 @@
       "src": "package.json",
       "use": "@vercel/node"
     }
-  ]
+  ],
+  "functions": {
+    "server.js": {
+      "runtime": "nodejs22.x"
+    }
+  }
 }
-
