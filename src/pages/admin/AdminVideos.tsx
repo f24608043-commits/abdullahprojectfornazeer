@@ -20,6 +20,7 @@ interface VideoForm {
     video_file?: File | null
     _thumbnail_file?: File | null
     upload_source: 'youtube' | 'file'
+    video_url?: string
 }
 
 const emptyForm: VideoForm = {
@@ -32,6 +33,7 @@ const emptyForm: VideoForm = {
     video_file: null,
     _thumbnail_file: null,
     upload_source: 'youtube',
+    video_url: '',
 }
 
 export default function AdminVideos() {
@@ -123,6 +125,7 @@ export default function AdminVideos() {
             video_file: null,
             _thumbnail_file: null,
             upload_source: v.youtube_url ? 'youtube' : 'file',
+            video_url: v.video_url || '',
         })
         setEditId(v.id)
         setShowForm(true)

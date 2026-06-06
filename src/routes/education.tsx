@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, BookOpen, X, ArrowRight, Search } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { Reveal } from "@/components/site/Reveal";
+import { getPublicVideos, getPublicBlogs } from "@/api/adminApi";
 
 export const Route = createFileRoute("/education")({
   component: EducationPage,
@@ -117,37 +118,78 @@ function EducationPage() {
   const [videoCat, setVideoCat] = useState("All Videos");
   const [articleCat, setArticleCat] = useState("All Articles");
   const [selectedArticle, setSelectedArticle] = useState<any>(null);
+  const [dbVideos, setDbVideos] = useState<any[]>([]);
+  const [dbBlogs, setDbBlogs] = useState<any[]>([]);
+  const [videosLoading, setVideosLoading] = useState(true);
+  const [blogsLoading, setBlogsLoading] = useState(true);
 
   const videoSectionRef = useRef<HTMLDivElement>(null);
   const articleSectionRef = useRef<HTMLDivElement>(null);
+
+  // Load videos from database
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        const data = await getPublicVideos();
+        const videoCards = data
+          .map(toYouTubeCard)
+          .filter((v): v is VideoCard => v !== null);
+        setDbVideos(videoCards);
+      } catch (err) {
+        console.error('Failed to load videos from database', err);
+        setDbVideos([]);
+      } finally {
+        setVideosLoading(false);
+      }
+    };
+    loadVideos();
+
+    // Load blogs from database
+    const loadBlogs = async () => {
+      try {
+        const data = await getPublicBlogs();
+        setDbBlogs(data);
+      } catch (err) {
+        console.error('Failed to load blogs from database', err);
+        setDbBlogs([]);
+      } finally {
+        setBlogsLoading(false);
+      }
+    };
+    loadBlogs();
+  }, []);
 
   /* =========================================================
      FILTER VIDEOS
   ========================================================= */
 
-  // For now, render fallback videos. Once Supabase client env vars are fixed,
-  // we can replace this with real admin-panel videos.
+  // Use database videos if available, otherwise fallback
+  const videosToUse = dbVideos.length > 0 ? dbVideos : fallbackVideos;
+
   const filteredVideos = useMemo(() => {
-    return fallbackVideos.filter((v) => {
+    return videosToUse.filter((v) => {
       const matchSearch = v.title.toLowerCase().includes(search.toLowerCase());
       const matchCat = videoCat === "All Videos" || v.cat === videoCat;
       return matchSearch && matchCat;
     });
-  }, [search, videoCat]);
+  }, [search, videoCat, videosToUse]);
 
   /* =========================================================
      FILTER ARTICLES
   ========================================================= */
 
+  // Use database blogs if available, otherwise fallback
+  const articlesToUse = dbBlogs.length > 0 ? dbBlogs : articles;
+
   const filteredArticles = useMemo(() => {
-    return articles.filter((a) => {
+    return articlesToUse.filter((a) => {
       const matchSearch = a.title.toLowerCase().includes(search.toLowerCase());
 
       const matchCat = articleCat === "All Articles" || a.cat === articleCat;
 
       return matchSearch && matchCat;
     });
-  }, [search, articleCat]);
+  }, [search, articleCat, articlesToUse]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -320,14 +362,29 @@ function EducationPage() {
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
                 className="group cursor-pointer"
+                onClick={() => {
+                  if (a.seo_slug) {
+                    window.location.href = `/blogs/${a.seo_slug}`;
+                  } else {
+                    setSelectedArticle(a);
+                  }
+                }}
               >
                 {/* Square Image Container */}
                 <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square bg-gradient-to-br from-red-400 to-red-600 group-hover:scale-105 transition-transform mb-4">
-                  <div className="w-full h-full flex items-center justify-center">
-                    {/* Article image placeholder with gradient overlay */}
-                    <div className="absolute inset-0 opacity-20 bg-white" />
-                    <BookOpen className="w-16 h-16 text-white relative z-10" />
-                  </div>
+                  {a.title_image_url ? (
+                    <img
+                      src={a.title_image_url}
+                      alt={a.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      {/* Article image placeholder with gradient overlay */}
+                      <div className="absolute inset-0 opacity-20 bg-white" />
+                      <BookOpen className="w-16 h-16 text-white relative z-10" />
+                    </div>
+                  )}
                 </div>
 
                 {/* Title Below - Positioned at bottom like in a gallery */}

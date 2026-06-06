@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || ''
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || ''
+const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 interface Props {
@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: Props) {
             setUser(session?.user ?? null)
             if (!session) {
                 // Auto-redirect to login if logged out
-                navigate({ to: '/admin/login', replace: true })
+                navigate({ to: '/brigaidear/login', replace: true })
             }
         })
 
@@ -39,7 +39,7 @@ export default function AdminLayout({ children }: Props) {
 
     const handleLogout = async () => {
         await supabase.auth.signOut()
-        navigate({ to: '/admin/login', replace: true })
+        navigate({ to: '/brigaidear/login', replace: true })
     }
 
     // Show loading while checking auth
@@ -60,7 +60,7 @@ export default function AdminLayout({ children }: Props) {
 
     // Redirect to login if not authenticated
     if (!user) {
-        navigate({ to: '/admin/login', replace: true })
+        navigate({ to: '/brigaidear/login', replace: true })
         return null
     }
 
@@ -68,9 +68,12 @@ export default function AdminLayout({ children }: Props) {
     const adminName = user.user_metadata?.name || 'Administrator'
 
     const navItems = [
-        { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
-        { path: '/admin/videos', label: 'Videos', icon: '🎬' },
-        { path: '/admin/reviews', label: 'Reviews', icon: '⭐' },
+        { path: '/brigaidear/dashboard', label: 'Dashboard', icon: '📊' },
+        { path: '/brigaidear/videos', label: 'Videos', icon: '🎬' },
+        { path: '/brigaidear/reviews', label: 'Reviews', icon: '⭐' },
+        { path: '/brigaidear/blogs', label: 'Blogs', icon: '📝' },
+        { path: '/brigaidear/contact', label: 'Contact', icon: '📧' },
+        { path: '/brigaidear/bookappointment', label: 'Appointments', icon: '📅' },
     ]
 
     const sidebarStyle: React.CSSProperties = {

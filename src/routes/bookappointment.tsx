@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { Calendar, Clock, User, Mail, Phone, MessageSquare, CheckCircle } from "lucide-react";
+import { submitAppointmentBooking } from "@/api/adminApi";
 
 export const Route = createFileRoute("/bookappointment")({
   head: () => ({
@@ -64,8 +65,40 @@ function BookAppointmentPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Basic required-field guard to prevent empty WhatsApp submissions.
+    if (!formData.fullName.trim()) return;
+    if (!formData.email.trim()) return;
+    if (!formData.phone.trim()) return;
+    if (!formData.preferredDate) return;
+    if (!formData.preferredTime) return;
+    if (!formData.service) return;
+    if (!formData.urgency) return;
+    if (!formData.symptoms.trim()) return;
+
+    // Save to database
+    try {
+      await submitAppointmentBooking({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        preferred_date: formData.preferredDate,
+        preferred_time: formData.preferredTime,
+        service: formData.service,
+        urgency: formData.urgency,
+        symptoms: formData.symptoms,
+        previous_treatment: formData.previousTreatment,
+        medical_conditions: formData.medicalConditions,
+        additional_notes: formData.additionalNotes,
+        whatsapp_sent: false,
+        status: 'pending',
+      });
+    } catch (err) {
+      console.error('Failed to save appointment booking to database', err);
+      // Continue with WhatsApp redirect even if database save fails
+    }
 
     const message = `🦷 NMDC APPOINTMENT REQUEST
 
@@ -94,16 +127,6 @@ ${formData.additionalNotes || "None"}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 Please confirm this appointment at your earliest convenience.`;
-
-    // Basic required-field guard to prevent empty WhatsApp submissions.
-    if (!formData.fullName.trim()) return;
-    if (!formData.email.trim()) return;
-    if (!formData.phone.trim()) return;
-    if (!formData.preferredDate) return;
-    if (!formData.preferredTime) return;
-    if (!formData.service) return;
-    if (!formData.urgency) return;
-    if (!formData.symptoms.trim()) return;
 
     const whatsappUrl = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");

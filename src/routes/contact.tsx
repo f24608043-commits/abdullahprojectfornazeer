@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, MessageCircle, Phone, Clock } from "lucide-react";
 import { useState } from "react";
 import { Reveal } from "@/components/site/Reveal";
+import { submitContactForm } from "@/api/adminApi";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -31,6 +32,22 @@ function ContactPage() {
     const date = (form.elements.namedItem("date") as HTMLInputElement)?.value;
     const service = (form.elements.namedItem("service") as HTMLSelectElement)?.value;
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value;
+
+    // Save to database
+    try {
+      await submitContactForm({
+        name,
+        phone,
+        email,
+        date,
+        service,
+        message,
+        whatsapp_sent: false,
+      });
+    } catch (err) {
+      console.error('Failed to save contact form to database', err);
+      // Continue with WhatsApp redirect even if database save fails
+    }
 
     const whatsappMessage = `🦷 NMDC Appointment Request
 

@@ -63,7 +63,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
     const { queryClient } = Route.useRouteContext();
     const location = useLocation();
-    const isAdminRoute = location.pathname.startsWith("/admin");
+    const isAdminRoute = location.pathname.startsWith("/brigaidear");
     if (isAdminRoute) {
         return (<QueryClientProvider client={queryClient}><Outlet /></QueryClientProvider>);
     }

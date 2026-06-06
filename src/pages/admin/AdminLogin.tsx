@@ -4,8 +4,8 @@ import { useNavigate } from '@tanstack/react-router'
 import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || ''
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || ''
+const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export default function AdminLogin() {
@@ -31,7 +31,7 @@ export default function AdminLogin() {
       if (!data.user) throw new Error('Login failed')
 
       // ✅ Supabase auto-saves session - just redirect
-      navigate({ to: '/admin/dashboard' })
+      navigate({ to: '/brigaidear/dashboard' })
 
     } catch (err: any) {
       console.error('Login error:', err)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAdminReviews, approveReview, deleteReview } from '../../api/adminApi'
+import AdminLayout from './AdminLayout'
 
 type FilterType = 'all' | 'pending' | 'approved'
 
@@ -51,7 +52,8 @@ export default function AdminReviews() {
     const pendingCount = reviews.filter(r => !r.is_approved).length
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <AdminLayout>
+            <div style={{ padding: '2rem' }}>
             <div
                 style={{
                     display: 'flex',
@@ -225,5 +227,6 @@ export default function AdminReviews() {
                 </div>
             )}
         </div>
+        </AdminLayout>
     )
 }

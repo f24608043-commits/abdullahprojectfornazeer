@@ -14,8 +14,19 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as EducationRouteImport } from './routes/education'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookappointmentRouteImport } from './routes/bookappointment'
+import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrigaidearIndexRouteImport } from './routes/brigaidear/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as BrigaidearVideosRouteImport } from './routes/brigaidear/videos'
+import { Route as BrigaidearReviewsRouteImport } from './routes/brigaidear/reviews'
+import { Route as BrigaidearLoginRouteImport } from './routes/brigaidear/login'
+import { Route as BrigaidearDashboardRouteImport } from './routes/brigaidear/dashboard'
+import { Route as BrigaidearContactRouteImport } from './routes/brigaidear/contact'
+import { Route as BrigaidearBookappointmentRouteImport } from './routes/brigaidear/bookappointment'
+import { Route as BrigaidearBlogsRouteImport } from './routes/brigaidear/blogs'
+import { Route as BrigaidearLayoutRouteImport } from './routes/brigaidear/_layout'
+import { Route as BlogsSlugRouteImport } from './routes/blogs.$slug'
 import { Route as AdminVideosRouteImport } from './routes/admin/videos'
 import { Route as AdminReviewsRouteImport } from './routes/admin/reviews'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -47,15 +58,71 @@ const BookappointmentRoute = BookappointmentRouteImport.update({
   path: '/bookappointment',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearIndexRoute = BrigaidearIndexRouteImport.update({
+  id: '/brigaidear/',
+  path: '/brigaidear/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearVideosRoute = BrigaidearVideosRouteImport.update({
+  id: '/brigaidear/videos',
+  path: '/brigaidear/videos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearReviewsRoute = BrigaidearReviewsRouteImport.update({
+  id: '/brigaidear/reviews',
+  path: '/brigaidear/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearLoginRoute = BrigaidearLoginRouteImport.update({
+  id: '/brigaidear/login',
+  path: '/brigaidear/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearDashboardRoute = BrigaidearDashboardRouteImport.update({
+  id: '/brigaidear/dashboard',
+  path: '/brigaidear/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearContactRoute = BrigaidearContactRouteImport.update({
+  id: '/brigaidear/contact',
+  path: '/brigaidear/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearBookappointmentRoute =
+  BrigaidearBookappointmentRouteImport.update({
+    id: '/brigaidear/bookappointment',
+    path: '/brigaidear/bookappointment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BrigaidearBlogsRoute = BrigaidearBlogsRouteImport.update({
+  id: '/brigaidear/blogs',
+  path: '/brigaidear/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrigaidearLayoutRoute = BrigaidearLayoutRouteImport.update({
+  id: '/brigaidear/_layout',
+  path: '/brigaidear',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogsSlugRoute = BlogsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogsRoute,
 } as any)
 const AdminVideosRoute = AdminVideosRouteImport.update({
   id: '/admin/videos',
@@ -85,6 +152,7 @@ const AdminLayoutRoute = AdminLayoutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -95,10 +163,21 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/videos': typeof AdminVideosRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/brigaidear': typeof BrigaidearLayoutRoute
+  '/brigaidear/blogs': typeof BrigaidearBlogsRoute
+  '/brigaidear/bookappointment': typeof BrigaidearBookappointmentRoute
+  '/brigaidear/contact': typeof BrigaidearContactRoute
+  '/brigaidear/dashboard': typeof BrigaidearDashboardRoute
+  '/brigaidear/login': typeof BrigaidearLoginRoute
+  '/brigaidear/reviews': typeof BrigaidearReviewsRoute
+  '/brigaidear/videos': typeof BrigaidearVideosRoute
   '/admin/': typeof AdminIndexRoute
+  '/brigaidear/': typeof BrigaidearIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -109,10 +188,20 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/videos': typeof AdminVideosRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/brigaidear': typeof BrigaidearIndexRoute
+  '/brigaidear/blogs': typeof BrigaidearBlogsRoute
+  '/brigaidear/bookappointment': typeof BrigaidearBookappointmentRoute
+  '/brigaidear/contact': typeof BrigaidearContactRoute
+  '/brigaidear/dashboard': typeof BrigaidearDashboardRoute
+  '/brigaidear/login': typeof BrigaidearLoginRoute
+  '/brigaidear/reviews': typeof BrigaidearReviewsRoute
+  '/brigaidear/videos': typeof BrigaidearVideosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -123,12 +212,23 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/videos': typeof AdminVideosRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/brigaidear/_layout': typeof BrigaidearLayoutRoute
+  '/brigaidear/blogs': typeof BrigaidearBlogsRoute
+  '/brigaidear/bookappointment': typeof BrigaidearBookappointmentRoute
+  '/brigaidear/contact': typeof BrigaidearContactRoute
+  '/brigaidear/dashboard': typeof BrigaidearDashboardRoute
+  '/brigaidear/login': typeof BrigaidearLoginRoute
+  '/brigaidear/reviews': typeof BrigaidearReviewsRoute
+  '/brigaidear/videos': typeof BrigaidearVideosRoute
   '/admin/': typeof AdminIndexRoute
+  '/brigaidear/': typeof BrigaidearIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -139,10 +239,21 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reviews'
     | '/admin/videos'
+    | '/blogs/$slug'
+    | '/brigaidear'
+    | '/brigaidear/blogs'
+    | '/brigaidear/bookappointment'
+    | '/brigaidear/contact'
+    | '/brigaidear/dashboard'
+    | '/brigaidear/login'
+    | '/brigaidear/reviews'
+    | '/brigaidear/videos'
     | '/admin/'
+    | '/brigaidear/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -153,9 +264,19 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reviews'
     | '/admin/videos'
+    | '/blogs/$slug'
+    | '/brigaidear'
+    | '/brigaidear/blogs'
+    | '/brigaidear/bookappointment'
+    | '/brigaidear/contact'
+    | '/brigaidear/dashboard'
+    | '/brigaidear/login'
+    | '/brigaidear/reviews'
+    | '/brigaidear/videos'
   id:
     | '__root__'
     | '/'
+    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -166,11 +287,22 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reviews'
     | '/admin/videos'
+    | '/blogs/$slug'
+    | '/brigaidear/_layout'
+    | '/brigaidear/blogs'
+    | '/brigaidear/bookappointment'
+    | '/brigaidear/contact'
+    | '/brigaidear/dashboard'
+    | '/brigaidear/login'
+    | '/brigaidear/reviews'
+    | '/brigaidear/videos'
     | '/admin/'
+    | '/brigaidear/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogsRoute: typeof BlogsRouteWithChildren
   BookappointmentRoute: typeof BookappointmentRoute
   ContactRoute: typeof ContactRoute
   EducationRoute: typeof EducationRoute
@@ -181,7 +313,16 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminVideosRoute: typeof AdminVideosRoute
+  BrigaidearLayoutRoute: typeof BrigaidearLayoutRoute
+  BrigaidearBlogsRoute: typeof BrigaidearBlogsRoute
+  BrigaidearBookappointmentRoute: typeof BrigaidearBookappointmentRoute
+  BrigaidearContactRoute: typeof BrigaidearContactRoute
+  BrigaidearDashboardRoute: typeof BrigaidearDashboardRoute
+  BrigaidearLoginRoute: typeof BrigaidearLoginRoute
+  BrigaidearReviewsRoute: typeof BrigaidearReviewsRoute
+  BrigaidearVideosRoute: typeof BrigaidearVideosRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  BrigaidearIndexRoute: typeof BrigaidearIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -221,11 +362,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookappointmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/': {
+      id: '/brigaidear/'
+      path: '/brigaidear'
+      fullPath: '/brigaidear/'
+      preLoaderRoute: typeof BrigaidearIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -234,6 +389,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/videos': {
+      id: '/brigaidear/videos'
+      path: '/brigaidear/videos'
+      fullPath: '/brigaidear/videos'
+      preLoaderRoute: typeof BrigaidearVideosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/reviews': {
+      id: '/brigaidear/reviews'
+      path: '/brigaidear/reviews'
+      fullPath: '/brigaidear/reviews'
+      preLoaderRoute: typeof BrigaidearReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/login': {
+      id: '/brigaidear/login'
+      path: '/brigaidear/login'
+      fullPath: '/brigaidear/login'
+      preLoaderRoute: typeof BrigaidearLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/dashboard': {
+      id: '/brigaidear/dashboard'
+      path: '/brigaidear/dashboard'
+      fullPath: '/brigaidear/dashboard'
+      preLoaderRoute: typeof BrigaidearDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/contact': {
+      id: '/brigaidear/contact'
+      path: '/brigaidear/contact'
+      fullPath: '/brigaidear/contact'
+      preLoaderRoute: typeof BrigaidearContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/bookappointment': {
+      id: '/brigaidear/bookappointment'
+      path: '/brigaidear/bookappointment'
+      fullPath: '/brigaidear/bookappointment'
+      preLoaderRoute: typeof BrigaidearBookappointmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/blogs': {
+      id: '/brigaidear/blogs'
+      path: '/brigaidear/blogs'
+      fullPath: '/brigaidear/blogs'
+      preLoaderRoute: typeof BrigaidearBlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brigaidear/_layout': {
+      id: '/brigaidear/_layout'
+      path: '/brigaidear'
+      fullPath: '/brigaidear'
+      preLoaderRoute: typeof BrigaidearLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blogs/$slug': {
+      id: '/blogs/$slug'
+      path: '/$slug'
+      fullPath: '/blogs/$slug'
+      preLoaderRoute: typeof BlogsSlugRouteImport
+      parentRoute: typeof BlogsRoute
     }
     '/admin/videos': {
       id: '/admin/videos'
@@ -273,8 +491,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BlogsRouteChildren {
+  BlogsSlugRoute: typeof BlogsSlugRoute
+}
+
+const BlogsRouteChildren: BlogsRouteChildren = {
+  BlogsSlugRoute: BlogsSlugRoute,
+}
+
+const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogsRoute: BlogsRouteWithChildren,
   BookappointmentRoute: BookappointmentRoute,
   ContactRoute: ContactRoute,
   EducationRoute: EducationRoute,
@@ -285,7 +514,16 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminVideosRoute: AdminVideosRoute,
+  BrigaidearLayoutRoute: BrigaidearLayoutRoute,
+  BrigaidearBlogsRoute: BrigaidearBlogsRoute,
+  BrigaidearBookappointmentRoute: BrigaidearBookappointmentRoute,
+  BrigaidearContactRoute: BrigaidearContactRoute,
+  BrigaidearDashboardRoute: BrigaidearDashboardRoute,
+  BrigaidearLoginRoute: BrigaidearLoginRoute,
+  BrigaidearReviewsRoute: BrigaidearReviewsRoute,
+  BrigaidearVideosRoute: BrigaidearVideosRoute,
   AdminIndexRoute: AdminIndexRoute,
+  BrigaidearIndexRoute: BrigaidearIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

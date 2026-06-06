@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Reveal } from "@/components/site/Reveal";
+import { getPublicReviews, submitReview } from "@/api/adminApi";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -33,7 +34,8 @@ const phrases = [
   "Compassionate care throughout my treatment. Truly five stars.",
 ];
 
-const reviews = Array.from({ length: 18 }).map((_, i) => ({
+// Fallback reviews if database is empty
+const fallbackReviews = Array.from({ length: 18 }).map((_, i) => ({
   id: i,
   name: `${firstNames[i % firstNames.length]} ${lastInit[i % lastInit.length]}`,
   city: cities[i % cities.length],
@@ -42,6 +44,26 @@ const reviews = Array.from({ length: 18 }).map((_, i) => ({
 }));
 
 function ReviewsPage() {
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadReviews = async () => {
+      try {
+        const data = await getPublicReviews();
+        setReviews(data.length > 0 ? data : fallbackReviews);
+      } catch (err) {
+        console.error('Failed to load reviews', err);
+        setReviews(fallbackReviews);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadReviews();
+  }, []);
+
+  const displayReviews = loading ? fallbackReviews : reviews;
+
   return (
     <div className="pt-32 pb-24">
       <section className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -72,32 +94,37 @@ function ReviewsPage() {
              <h2 className="mt-4 font-display text-3xl md:text-4xl green-bold">
                Write us a review
              </h2>
-             <ReviewForm />
+             <ReviewForm onReviewSubmitted={() => {
+               // Reload reviews after submission
+               getPublicReviews().then(data => {
+                 setReviews(data.length > 0 ? data : fallbackReviews);
+               });
+             }} />
            </div>
          </Reveal>
        </section>
 
        {/* Auto-sliding marquee */}
        <section className="mt-20 overflow-hidden">
-         <Marquee items={reviews.slice(0, 8)} />
+         <Marquee items={displayReviews.slice(0, 8)} />
          <div className="mt-6">
-           <Marquee items={reviews.slice(8, 16)} reverse />
+           <Marquee items={displayReviews.slice(8, 16)} reverse />
          </div>
        </section>
 
        {/* Grid */}
        <section className="mx-auto max-w-7xl px-6 lg:px-10 mt-24 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-         {reviews.slice(0, 9).map((r, i) => (
+         {displayReviews.slice(0, 9).map((r, i) => (
            <Reveal key={r.id} delay={i * 0.04}>
              <ReviewCard r={r} />
            </Reveal>
          ))}
        </section>
      </div>
-   );
- }
+  );
+}
 
-function ReviewCard({ r }: { r: (typeof reviews)[number] }) {
+function ReviewCard({ r }: { r: any }) {
   return (
     <div className="h-full rounded-3xl border border-border bg-card p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-red-600/40">
       <Quote className="h-5 w-5 text-red-600" />
@@ -116,7 +143,7 @@ function ReviewCard({ r }: { r: (typeof reviews)[number] }) {
   );
 }
 
-function Marquee({ items, reverse = false }: { items: typeof reviews; reverse?: boolean }) {
+function Marquee({ items, reverse = false }: { items: any[]; reverse?: boolean }) {
   const row = [...items, ...items];
   return (
     <div className="relative">
@@ -135,21 +162,60 @@ function Marquee({ items, reverse = false }: { items: typeof reviews; reverse?: 
   );
 }
 
-function ReviewForm() {
+function ReviewForm({ onReviewSubmitted }: { onReviewSubmitted?: () => void }) {
   const [rating, setRating] = useState(5);
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    const form = e.currentTarget;
+    const nameInput = form.elements.namedItem("name") as HTMLInputElement;
+    const cityInput = form.elements.namedItem("city") as HTMLInputElement;
+    const commentInput = form.elements.namedItem("comment") as HTMLTextAreaElement;
+
+    console.log('Form elements:', { nameInput, cityInput, commentInput });
+    console.log('Form values:', {
+      name: nameInput?.value,
+      city: cityInput?.value,
+      comment: commentInput?.value
+    });
+
+    const name = nameInput?.value || '';
+    const city = cityInput?.value || '';
+    const comment = commentInput?.value || '';
+
+    try {
+      await submitReview({
+        author_name: name,
+        comment: comment,
+        rating: rating,
+        is_approved: false,
+      });
+      setSent(true);
+      form.reset();
+      setRating(5);
+      if (onReviewSubmitted) {
+        onReviewSubmitted();
+      }
+    } catch (err) {
+      console.error('Failed to submit review', err);
+      alert('Failed to submit review. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      onSubmit={handleSubmit}
       className="mt-8 space-y-5"
     >
       <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Name" placeholder="Your full name" />
-        <Field label="City" placeholder="Where you're writing from" />
+        <Field label="Name" placeholder="Your full name" name="name" />
+        <Field label="City" placeholder="Where you're writing from" name="city" />
       </div>
       <div>
         <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Rating</label>
@@ -169,6 +235,7 @@ function ReviewForm() {
       <div>
         <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Your Review</label>
         <textarea
+          name="comment"
           rows={5}
           required
           placeholder="Tell us about your experience at NMDC..."
@@ -176,9 +243,15 @@ function ReviewForm() {
       </div>
       <button
         type="submit"
-        className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition-colors"      >
-        {sent ? "Thank you — review submitted" : "Submit Review"}
+        disabled={submitting || sent}
+        className="inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition-colors disabled:opacity-50"      >
+        {submitting ? "Submitting..." : sent ? "Thank you — review submitted for approval" : "Submit Review"}
       </button>
+      {sent && (
+        <p className="text-sm text-gray-500 mt-2">
+          Your review has been submitted and will be visible after admin approval.
+        </p>
+      )}
     </form>
   );
 }
@@ -195,4 +268,5 @@ function Field({ label, placeholder, type = "text" }: { label: string; placehold
     </div>
   );
 }
+
 
