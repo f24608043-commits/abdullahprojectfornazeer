@@ -6,9 +6,9 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Configure for static SPA deployment on Vercel
+// Configure for Vercel deployment (override Cloudflare default)
 export default defineConfig({
   tanstackStart: {
-    ssr: false,
+    target: "vercel",
   },
 });
