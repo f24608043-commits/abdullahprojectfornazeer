@@ -6,7 +6,7 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Configure for static SPA deployment on Vercel (disable SSR)
+// Configure for static SPA deployment on Vercel
 export default defineConfig({
   tanstackStart: {
     ssr: false,

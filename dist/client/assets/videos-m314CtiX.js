@@ -1,1 +1,0 @@
-import{A as o}from"./AdminVideos-BCteQA64.js";import"./index-DfvbwLBX.js";import"./adminApi-B6d3mE-Y.js";import"./index-Bz3EdAMz.js";import"./AdminLayout-5S6FOeFC.js";const n=o;export{n as component};
