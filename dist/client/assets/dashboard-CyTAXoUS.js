@@ -1,0 +1,1 @@
+import{A as o}from"./AdminDashboard-DTPbnwAs.js";import"./index-DFg9aKgu.js";import"./adminApi-B6d3mE-Y.js";import"./index-Bz3EdAMz.js";import"./AdminLayout-DUT6Wu-K.js";const n=o;export{n as component};

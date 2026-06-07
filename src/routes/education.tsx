@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { motion, AnimatePresence } from "framer-motion";
-import { Play, BookOpen, X, ArrowRight, Search } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { Play, BookOpen, Search } from "lucide-react";
 import { useMemo, useRef, useState, useEffect } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { getPublicVideos, getPublicBlogs } from "@/api/adminApi";
@@ -117,7 +117,6 @@ function EducationPage() {
   const [search, setSearch] = useState("");
   const [videoCat, setVideoCat] = useState("All Videos");
   const [articleCat, setArticleCat] = useState("All Articles");
-  const [selectedArticle, setSelectedArticle] = useState<any>(null);
   const [dbVideos, setDbVideos] = useState<any[]>([]);
   const [dbBlogs, setDbBlogs] = useState<any[]>([]);
   const [videosLoading, setVideosLoading] = useState(true);
@@ -354,98 +353,52 @@ function EducationPage() {
           {/* ARTICLE GRID - SQUARE IMAGES WITH TITLE AT BOTTOM */}
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
             {filteredArticles.map((a, idx) => (
-              <motion.div
+              <Link
                 key={a.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
+                to={a.seo_slug ? `/blogs/${a.seo_slug}` : `/blogs`}
                 className="group cursor-pointer"
-                onClick={() => {
-                  if (a.seo_slug) {
-                    window.location.href = `/blogs/${a.seo_slug}`;
-                  } else {
-                    setSelectedArticle(a);
-                  }
-                }}
               >
-                {/* Square Image Container */}
-                <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square bg-gradient-to-br from-red-400 to-red-600 group-hover:scale-105 transition-transform mb-4">
-                  {a.title_image_url ? (
-                    <img
-                      src={a.title_image_url}
-                      alt={a.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      {/* Article image placeholder with gradient overlay */}
-                      <div className="absolute inset-0 opacity-20 bg-white" />
-                      <BookOpen className="w-16 h-16 text-white relative z-10" />
-                    </div>
-                  )}
-                </div>
-
-                {/* Title Below - Positioned at bottom like in a gallery */}
-                <div
-                  onClick={() => setSelectedArticle(a)}
-                  className="flex flex-col"
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
                 >
-                  <span className="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full w-fit font-semibold mb-2">
-                    {a.cat}
-                  </span>
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2">
-                    {a.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-2">{a.content}</p>
-                </div>
-              </motion.div>
+                  {/* Square Image Container */}
+                  <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square bg-gradient-to-br from-red-400 to-red-600 group-hover:scale-105 transition-transform mb-4">
+                    {a.title_image_url ? (
+                      <img
+                        src={a.title_image_url}
+                        alt={a.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        {/* Article image placeholder with gradient overlay */}
+                        <div className="absolute inset-0 opacity-20 bg-white" />
+                        <BookOpen className="w-16 h-16 text-white relative z-10" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Title Below - Positioned at bottom like in a gallery */}
+                  <div className="flex flex-col">
+                    <span className="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full w-fit font-semibold mb-2">
+                      {a.cat}
+                    </span>
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2">
+                      {a.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-2 line-clamp-2">{a.content}</p>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          ARTICLE MODAL
-      ========================================================= */}
-      <AnimatePresence>
-        {selectedArticle && (
-          <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedArticle(null)}
-          >
-            <motion.div
-              className="bg-white w-full max-w-4xl max-h-[85vh] overflow-y-auto p-10 rounded-2xl relative"
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedArticle(null)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-red-600 hover:text-white transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <span className="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold inline-block">
-                {selectedArticle.cat}
-              </span>
-
-              <h2 className="mt-6 text-4xl font-bold leading-tight text-gray-900">
-                {selectedArticle.title}
-              </h2>
-
-              <p className="mt-8 text-gray-700 leading-8 text-lg">{selectedArticle.content}</p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
