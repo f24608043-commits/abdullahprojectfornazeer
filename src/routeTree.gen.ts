@@ -114,9 +114,9 @@ const BrigaidearLayoutRoute = BrigaidearLayoutRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogsSlugRoute = BlogsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogsRoute,
+  id: '/blogs/$slug',
+  path: '/blogs/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminVideosRoute = AdminVideosRouteImport.update({
   id: '/admin/videos',
@@ -300,6 +300,7 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminVideosRoute: typeof AdminVideosRoute
+  BlogsSlugRoute: typeof BlogsSlugRoute
   BrigaidearLayoutRoute: typeof BrigaidearLayoutRoute
   BrigaidearBlogsRoute: typeof BrigaidearBlogsRoute
   BrigaidearBookappointmentRoute: typeof BrigaidearBookappointmentRoute
@@ -428,10 +429,10 @@ declare module '@tanstack/react-router' {
     }
     '/blogs/$slug': {
       id: '/blogs/$slug'
-      path: '/$slug'
+      path: '/blogs/$slug'
       fullPath: '/blogs/$slug'
       preLoaderRoute: typeof BlogsSlugRouteImport
-      parentRoute: typeof BlogsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/videos': {
       id: '/admin/videos'
@@ -483,6 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminVideosRoute: AdminVideosRoute,
+  BlogsSlugRoute: BlogsSlugRoute,
   BrigaidearLayoutRoute: BrigaidearLayoutRoute,
   BrigaidearBlogsRoute: BrigaidearBlogsRoute,
   BrigaidearBookappointmentRoute: BrigaidearBookappointmentRoute,
@@ -497,3 +499,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

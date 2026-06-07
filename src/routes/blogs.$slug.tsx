@@ -33,11 +33,11 @@ function BlogDetailPage() {
       <section className="mx-auto max-w-4xl px-6 lg:px-10">
         <Reveal>
           <Link
-            to="/blogs"
+            to="/education"
             className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-600 transition-colors mb-8"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Blogs
+            Back to Education
           </Link>
 
           {loading ? (
