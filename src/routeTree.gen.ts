@@ -14,7 +14,6 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as EducationRouteImport } from './routes/education'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookappointmentRouteImport } from './routes/bookappointment'
-import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BrigaidearIndexRouteImport } from './routes/brigaidear/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -56,11 +55,6 @@ const ContactRoute = ContactRouteImport.update({
 const BookappointmentRoute = BookappointmentRouteImport.update({
   id: '/bookappointment',
   path: '/bookappointment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogsRoute = BlogsRouteImport.update({
-  id: '/blogs',
-  path: '/blogs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -152,7 +146,6 @@ const AdminLayoutRoute = AdminLayoutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -177,7 +170,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -201,7 +193,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blogs': typeof BlogsRouteWithChildren
   '/bookappointment': typeof BookappointmentRoute
   '/contact': typeof ContactRoute
   '/education': typeof EducationRoute
@@ -228,7 +219,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -253,7 +243,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -276,7 +265,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/blogs'
     | '/bookappointment'
     | '/contact'
     | '/education'
@@ -302,7 +290,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogsRoute: typeof BlogsRouteWithChildren
   BookappointmentRoute: typeof BookappointmentRoute
   ContactRoute: typeof ContactRoute
   EducationRoute: typeof EducationRoute
@@ -360,13 +347,6 @@ declare module '@tanstack/react-router' {
       path: '/bookappointment'
       fullPath: '/bookappointment'
       preLoaderRoute: typeof BookappointmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blogs': {
-      id: '/blogs'
-      path: '/blogs'
-      fullPath: '/blogs'
-      preLoaderRoute: typeof BlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -491,19 +471,8 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface BlogsRouteChildren {
-  BlogsSlugRoute: typeof BlogsSlugRoute
-}
-
-const BlogsRouteChildren: BlogsRouteChildren = {
-  BlogsSlugRoute: BlogsSlugRoute,
-}
-
-const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogsRoute: BlogsRouteWithChildren,
   BookappointmentRoute: BookappointmentRoute,
   ContactRoute: ContactRoute,
   EducationRoute: EducationRoute,
@@ -528,13 +497,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

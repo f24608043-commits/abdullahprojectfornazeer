@@ -177,8 +177,8 @@ function EducationPage() {
      FILTER ARTICLES
   ========================================================= */
 
-  // Use database blogs if available, otherwise fallback
-  const articlesToUse = dbBlogs.length > 0 ? dbBlogs : articles;
+  // Only use database blogs (all have seo_slug)
+  const articlesToUse = dbBlogs;
 
   const filteredArticles = useMemo(() => {
     return articlesToUse.filter((a) => {
@@ -355,7 +355,8 @@ function EducationPage() {
             {filteredArticles.map((a, idx) => (
               <Link
                 key={a.id}
-                to={a.seo_slug ? `/blogs/${a.seo_slug}` : `/blogs`}
+                to="/blogs/$slug"
+                params={{ slug: a.seo_slug }}
                 className="group cursor-pointer"
               >
                 <motion.div
