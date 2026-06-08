@@ -22,20 +22,20 @@ const videoCategories = ["All Videos", "Implants", "Cosmetic", "Hygiene", "Surge
 
 const fallbackVideos = [
   {
-    id: 'fallback-1',
-    title: 'Everything You Need to Know About Dental Implants',
-    cat: 'Implants',
-    thumbnailUrl: 'https://img.youtube.com/vi/N4v8yVYyZ0Q/hqdefault.jpg',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/N4v8yVYyZ0Q',
-    youtubeWatchUrl: 'https://www.youtube.com/watch?v=N4v8yVYyZ0Q',
+    id: "fallback-1",
+    title: "Everything You Need to Know About Dental Implants",
+    cat: "Implants",
+    thumbnailUrl: "https://img.youtube.com/vi/N4v8yVYyZ0Q/hqdefault.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/N4v8yVYyZ0Q",
+    youtubeWatchUrl: "https://www.youtube.com/watch?v=N4v8yVYyZ0Q",
   },
   {
-    id: 'fallback-2',
-    title: 'Root Canal Procedure Explained',
-    cat: 'Surgery',
-    thumbnailUrl: 'https://img.youtube.com/vi/2nqzV1y9c2A/hqdefault.jpg',
-    youtubeEmbedUrl: 'https://www.youtube.com/embed/2nqzV1y9c2A',
-    youtubeWatchUrl: 'https://www.youtube.com/watch?v=2nqzV1y9c2A',
+    id: "fallback-2",
+    title: "Root Canal Procedure Explained",
+    cat: "Surgery",
+    thumbnailUrl: "https://img.youtube.com/vi/2nqzV1y9c2A/hqdefault.jpg",
+    youtubeEmbedUrl: "https://www.youtube.com/embed/2nqzV1y9c2A",
+    youtubeWatchUrl: "https://www.youtube.com/watch?v=2nqzV1y9c2A",
   },
 ];
 
@@ -51,14 +51,14 @@ type VideoCard = {
 function toYouTubeCard(video: any): VideoCard | null {
   // adminApi uses field `youtube_url`.
   const title = video?.title;
-  const cat = video?.category || 'general';
+  const cat = video?.category || "general";
   const youtubeUrl = video?.youtube_url;
 
   if (!title || !youtubeUrl) return null;
 
   try {
     const u = new URL(youtubeUrl);
-    const v = u.searchParams.get('v');
+    const v = u.searchParams.get("v");
     if (v) {
       return {
         id: video.id ?? title,
@@ -70,7 +70,7 @@ function toYouTubeCard(video: any): VideoCard | null {
       };
     }
 
-    const parts = u.pathname.split('/').filter(Boolean);
+    const parts = u.pathname.split("/").filter(Boolean);
     const last = parts[parts.length - 1];
     if (last) {
       return {
@@ -89,7 +89,6 @@ function toYouTubeCard(video: any): VideoCard | null {
   return null;
 }
 
-
 /* =========================================================
    📖 ARTICLES DATA
 ========================================================= */
@@ -97,18 +96,78 @@ function toYouTubeCard(video: any): VideoCard | null {
 const articleCategories = ["All Articles", "Surgery", "Cosmetic", "General", "Hygiene"];
 
 const articles = [
-  { id: 1, title: 'Dental Health Basics', cat: 'General', content: 'Learn the fundamentals of dental health and daily care routine.' },
-  { id: 2, title: 'Implant Recovery Guide', cat: 'Surgery', content: 'Complete guide to recovering from dental implant surgery.' },
-  { id: 3, title: 'Whitening Safety Tips', cat: 'Cosmetic', content: 'Safe ways to whiten your teeth at home and in clinic.' },
-  { id: 4, title: 'Braces Care Instructions', cat: 'General', content: 'Everything you need to know about braces maintenance.' },
-  { id: 5, title: 'Root Canal Myths', cat: 'Surgery', content: 'Debunking common myths about root canal treatments.' },
-  { id: 6, title: 'Gum Disease Prevention', cat: 'Hygiene', content: 'Prevent gum disease with proper oral care techniques.' },
-  { id: 7, title: 'Oral Hygiene Routine', cat: 'Hygiene', content: 'Develop a healthy oral hygiene routine for better teeth.' },
-  { id: 8, title: 'Tooth Pain Causes', cat: 'General', content: 'Understanding the causes of tooth pain and treatment options.' },
-  { id: 9, title: 'Cosmetic Dentistry Options', cat: 'Cosmetic', content: 'Explore various cosmetic dentistry procedures available.' },
-  { id: 10, title: 'Teeth Sensitivity Solutions', cat: 'Hygiene', content: 'Effective ways to treat and prevent tooth sensitivity.' },
-  { id: 11, title: 'Orthodontics Explained', cat: 'General', content: 'Understanding braces, aligners, and orthodontic treatment.' },
-  { id: 12, title: 'Dental Implants Benefits', cat: 'Surgery', content: 'The advantages and benefits of choosing dental implants.' },
+  {
+    id: 1,
+    title: "Dental Health Basics",
+    cat: "General",
+    content: "Learn the fundamentals of dental health and daily care routine.",
+  },
+  {
+    id: 2,
+    title: "Implant Recovery Guide",
+    cat: "Surgery",
+    content: "Complete guide to recovering from dental implant surgery.",
+  },
+  {
+    id: 3,
+    title: "Whitening Safety Tips",
+    cat: "Cosmetic",
+    content: "Safe ways to whiten your teeth at home and in clinic.",
+  },
+  {
+    id: 4,
+    title: "Braces Care Instructions",
+    cat: "General",
+    content: "Everything you need to know about braces maintenance.",
+  },
+  {
+    id: 5,
+    title: "Root Canal Myths",
+    cat: "Surgery",
+    content: "Debunking common myths about root canal treatments.",
+  },
+  {
+    id: 6,
+    title: "Gum Disease Prevention",
+    cat: "Hygiene",
+    content: "Prevent gum disease with proper oral care techniques.",
+  },
+  {
+    id: 7,
+    title: "Oral Hygiene Routine",
+    cat: "Hygiene",
+    content: "Develop a healthy oral hygiene routine for better teeth.",
+  },
+  {
+    id: 8,
+    title: "Tooth Pain Causes",
+    cat: "General",
+    content: "Understanding the causes of tooth pain and treatment options.",
+  },
+  {
+    id: 9,
+    title: "Cosmetic Dentistry Options",
+    cat: "Cosmetic",
+    content: "Explore various cosmetic dentistry procedures available.",
+  },
+  {
+    id: 10,
+    title: "Teeth Sensitivity Solutions",
+    cat: "Hygiene",
+    content: "Effective ways to treat and prevent tooth sensitivity.",
+  },
+  {
+    id: 11,
+    title: "Orthodontics Explained",
+    cat: "General",
+    content: "Understanding braces, aligners, and orthodontic treatment.",
+  },
+  {
+    id: 12,
+    title: "Dental Implants Benefits",
+    cat: "Surgery",
+    content: "The advantages and benefits of choosing dental implants.",
+  },
 ];
 
 /* ========================================================= */
@@ -130,12 +189,10 @@ function EducationPage() {
     const loadVideos = async () => {
       try {
         const data = await getPublicVideos();
-        const videoCards = data
-          .map(toYouTubeCard)
-          .filter((v): v is VideoCard => v !== null);
+        const videoCards = data.map(toYouTubeCard).filter((v): v is VideoCard => v !== null);
         setDbVideos(videoCards);
       } catch (err) {
-        console.error('Failed to load videos from database', err);
+        console.error("Failed to load videos from database", err);
         setDbVideos([]);
       } finally {
         setVideosLoading(false);
@@ -149,7 +206,7 @@ function EducationPage() {
         const data = await getPublicBlogs();
         setDbBlogs(data);
       } catch (err) {
-        console.error('Failed to load blogs from database', err);
+        console.error("Failed to load blogs from database", err);
         setDbBlogs([]);
       } finally {
         setBlogsLoading(false);
@@ -214,7 +271,8 @@ function EducationPage() {
                 </h1>
 
                 <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-                  Explore professional dental education resources with expert videos and comprehensive articles.
+                  Explore professional dental education resources with expert videos and
+                  comprehensive articles.
                 </p>
 
                 {/* SEARCH BAR */}
@@ -399,7 +457,6 @@ function EducationPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

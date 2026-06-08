@@ -3,6 +3,7 @@
 ## ✅ What's Already Done
 
 The admin panel structure is fully implemented with:
+
 - ✅ Login page with Supabase authentication
 - ✅ Dashboard with statistics
 - ✅ Videos management (CRUD operations)
@@ -32,6 +33,7 @@ The admin panel structure is fully implemented with:
 ### Step 2: Create Admin User (2 minutes)
 
 **Via Supabase Dashboard:**
+
 1. Go to **Authentication** > **Users**
 2. Click **Add User** > **Create New User**
 3. Enter:
@@ -55,6 +57,7 @@ npm run dev
 ## 📊 Admin Panel Features
 
 ### Dashboard (`/brigaidear/dashboard`)
+
 - Total videos count
 - Published videos count
 - Total reviews count
@@ -64,6 +67,7 @@ npm run dev
 - Pending reviews preview
 
 ### Videos (`/brigaidear/videos`)
+
 - Add videos via YouTube URL
 - Upload video files directly
 - Upload custom thumbnails
@@ -74,6 +78,7 @@ npm run dev
 - File upload via Supabase Storage
 
 ### Reviews (`/brigaidear/reviews`)
+
 - View all reviews
 - Filter by status (all/pending/approved)
 - Approve pending reviews
@@ -86,6 +91,7 @@ npm run dev
 ### Database Tables
 
 **videos:**
+
 - id (UUID, Primary Key)
 - title, description, category
 - youtube_url, video_url, thumbnail_url
@@ -93,6 +99,7 @@ npm run dev
 - created_at, updated_at
 
 **reviews:**
+
 - id (UUID, Primary Key)
 - author_name, comment, rating
 - is_approved
@@ -116,23 +123,27 @@ npm run dev
 ## 🐛 Troubleshooting
 
 ### Login Issues
+
 - Verify user exists in Supabase Dashboard > Authentication > Users
 - Check email is exactly: `brigaidearnmdcnazeer@gmail.com`
 - Ensure password is correct
 - Clear browser cookies and try again
 
 ### Database Issues
+
 - Run `SELECT * FROM videos;` in SQL Editor to verify table exists
 - Run `SELECT * FROM reviews;` to verify reviews table
 - Check RLS policies: `SELECT * FROM pg_policies WHERE tablename IN ('videos', 'reviews');`
 
 ### File Upload Issues
+
 - Check Storage > Buckets in Supabase Dashboard
 - Verify `videos` bucket exists and is public
 - Check storage policies are enabled
 - Check browser console for errors
 
 ### Route Issues
+
 - Ensure you're logged in
 - Check browser console for authentication errors
 - Verify `.env` has correct Supabase credentials

@@ -1,4 +1,11 @@
-import { motion, useInView, useMotionValue, useTransform, animate, type Variants } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useTransform,
+  animate,
+  type Variants,
+} from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
 
 const variants: Variants = {

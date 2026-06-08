@@ -10,7 +10,8 @@ export const Route = createFileRoute("/bookappointment")({
       { title: "Book Appointment — NMDC | Dr Brig Nazeer" },
       {
         name: "description",
-        content: "Book a private appointment with Dr Brig Nazeer at NMDC. Fill out the form and we'll confirm via WhatsApp.",
+        content:
+          "Book a private appointment with Dr Brig Nazeer at NMDC. Fill out the form and we'll confirm via WhatsApp.",
       },
     ],
   }),
@@ -49,15 +50,10 @@ function BookAppointmentPage() {
     "Other",
   ];
 
-  const urgencies = [
-    "Routine Checkup",
-    "Within 1 week",
-    "Within 3 days",
-    "Emergency (Today)",
-  ];
+  const urgencies = ["Routine Checkup", "Within 1 week", "Within 3 days", "Emergency (Today)"];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -93,10 +89,10 @@ function BookAppointmentPage() {
         medical_conditions: formData.medicalConditions,
         additional_notes: formData.additionalNotes,
         whatsapp_sent: false,
-        status: 'pending',
+        status: "pending",
       });
     } catch (err) {
-      console.error('Failed to save appointment booking to database', err);
+      console.error("Failed to save appointment booking to database", err);
       // Continue with WhatsApp redirect even if database save fails
     }
 
@@ -145,8 +141,8 @@ Please confirm this appointment at your earliest convenience.`;
               Schedule your consultation
             </h1>
             <p className="mt-6 text-black/70 leading-relaxed">
-              Fill out the form below and we'll send your appointment request directly to our team via WhatsApp. 
-              We'll confirm your appointment within one business day.
+              Fill out the form below and we'll send your appointment request directly to our team
+              via WhatsApp. We'll confirm your appointment within one business day.
             </p>
           </div>
         </Reveal>
@@ -158,12 +154,11 @@ Please confirm this appointment at your earliest convenience.`;
             {submitted ? (
               <div className="text-center py-16">
                 <CheckCircle className="h-20 w-20 text-red-600 mx-auto mb-6" />
-                <h2 className="font-display text-3xl text-black mb-4">
-                  Appointment Request Sent!
-                </h2>
+                <h2 className="font-display text-3xl text-black mb-4">Appointment Request Sent!</h2>
                 <p className="text-black/70 max-w-md mx-auto">
-                  Your appointment request has been sent to our WhatsApp. We'll confirm your appointment 
-                  within one business day. You can also reach us directly at +92 333 6070227.
+                  Your appointment request has been sent to our WhatsApp. We'll confirm your
+                  appointment within one business day. You can also reach us directly at +92 333
+                  6070227.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -351,7 +346,7 @@ function FormField({
   type?: string;
   value: string;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => void;
   placeholder: string;
   required?: boolean;

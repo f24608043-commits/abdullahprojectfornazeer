@@ -1,7 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Sparkles, Stethoscope, HeartPulse, GraduationCap, Microscope, Quote, Star, ClipboardList, Layers, CheckCircle, BookOpen } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  ArrowRight,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  HeartPulse,
+  GraduationCap,
+  Microscope,
+  Quote,
+  Star,
+  ClipboardList,
+  Layers,
+  CheckCircle,
+  BookOpen,
+} from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import drNazeer from "@/assets/dr-nazeer.jpg";
 import clinic from "@/assets/clinic.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -11,9 +30,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "NMDC — Advanced Dental & Maxillofacial Care | Dr Brig Nazeer" },
-      { name: "description", content: "NMDC, led by Dr Brig Nazeer, delivers premium dental implants, smile design and maxillofacial surgery with a discreet, luxury standard of care." },
+      {
+        name: "description",
+        content:
+          "NMDC, led by Dr Brig Nazeer, delivers premium dental implants, smile design and maxillofacial surgery with a discreet, luxury standard of care.",
+      },
       { property: "og:title", content: "NMDC — Advanced Dental & Maxillofacial Care" },
-      { property: "og:description", content: "Premium dental and maxillofacial care led by Dr Brig Nazeer." },
+      {
+        property: "og:description",
+        content: "Premium dental and maxillofacial care led by Dr Brig Nazeer.",
+      },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -22,19 +48,52 @@ export const Route = createFileRoute("/")({
 });
 
 const reasons = [
-  { icon: Microscope, title: "Advanced Technology", body: "Digital imaging, guided surgery, and modern sterilisation protocols." },
-  { icon: HeartPulse, title: "Pain-Free Treatment", body: "Refined anaesthesia and gentle techniques across every procedure." },
-  { icon: Stethoscope, title: "Experienced Specialists", body: "Decades of clinical leadership in maxillofacial surgery and dentistry." },
-  { icon: Sparkles, title: "Modern Equipment", body: "Carefully selected instruments and ergonomic, calm treatment suites." },
-  { icon: GraduationCap, title: "Personalized Care", body: "Each plan is shaped around your anatomy, lifestyle and goals." },
-  { icon: ShieldCheck, title: "Hygiene & Safety", body: "Hospital-grade infection control and audited safety standards." },
+  {
+    icon: Microscope,
+    title: "Advanced Technology",
+    body: "Digital imaging, guided surgery, and modern sterilisation protocols.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Pain-Free Treatment",
+    body: "Refined anaesthesia and gentle techniques across every procedure.",
+  },
+  {
+    icon: Stethoscope,
+    title: "Experienced Specialists",
+    body: "Decades of clinical leadership in maxillofacial surgery and dentistry.",
+  },
+  {
+    icon: Sparkles,
+    title: "Modern Equipment",
+    body: "Carefully selected instruments and ergonomic, calm treatment suites.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Personalized Care",
+    body: "Each plan is shaped around your anatomy, lifestyle and goals.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Hygiene & Safety",
+    body: "Hospital-grade infection control and audited safety standards.",
+  },
 ];
 
 const previewServices = [
-  { title: "Dental Implants", body: "Single tooth to full arch restoration with titanium implants." },
+  {
+    title: "Dental Implants",
+    body: "Single tooth to full arch restoration with titanium implants.",
+  },
   { title: "Smile Designing", body: "Bespoke aesthetic planning for a balanced, natural smile." },
-  { title: "Jaw Surgery", body: "Corrective orthognathic surgery for function and facial harmony." },
-  { title: "Facial Trauma", body: "Reconstructive care after injury, performed with surgical precision." },
+  {
+    title: "Jaw Surgery",
+    body: "Corrective orthognathic surgery for function and facial harmony.",
+  },
+  {
+    title: "Facial Trauma",
+    body: "Reconstructive care after injury, performed with surgical precision.",
+  },
 ];
 
 const treatmentJourney = [
@@ -170,8 +229,7 @@ const faqItems = [
   },
   {
     question: "How do I book an appointment?",
-    answer:
-      "Appointments can be booked online, by phone, or through WhatsApp consultation.",
+    answer: "Appointments can be booked online, by phone, or through WhatsApp consultation.",
   },
 ];
 
@@ -218,26 +276,31 @@ function Home() {
               <h1 className="mt-6 font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-black">
                 Advanced Dental
                 <br />
-                and <span className="italic text-red-600">Maxillofacial</span> Care              </h1>
+                and <span className="italic text-red-600">Maxillofacial</span> Care{" "}
+              </h1>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 text-base text-muted-foreground">Led by Dr Brig Nazeer</p>
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-charcoal/75">                A refined private practice combining surgical mastery with quietly attentive
-                hospitality. From precise implants to complex reconstructive surgery, every
-                detail is considered.
+              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-charcoal/75">
+                {" "}
+                A refined private practice combining surgical mastery with quietly attentive
+                hospitality. From precise implants to complex reconstructive surgery, every detail
+                is considered.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   to="/contact"
-                  className="group inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition-colors duration-500"                >
+                  className="group inline-flex items-center gap-3 rounded-full bg-black px-7 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition-colors duration-500"
+                >
                   Book Appointment
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   to="/services"
-                  className="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/50 px-7 py-4 text-xs uppercase tracking-[0.25em] text-black hover:border-red-600 hover:text-red-600 transition-colors"                >
+                  className="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white/50 px-7 py-4 text-xs uppercase tracking-[0.25em] text-black hover:border-red-600 hover:text-red-600 transition-colors"
+                >
                   Explore Services
                 </Link>
               </div>
@@ -246,24 +309,24 @@ function Home() {
 
           {/* Doctor portrait */}
           <div className="lg:col-span-5 relative">
-             <div className="relative mx-auto max-w-md">
-               {/* Main image container */}
-               <div className="relative overflow-hidden rounded-[2rem] shadow-luxury border border-white/60">
-                 <img 
-                   src={drNazeer}
-                   alt="Dr Brig Nazeer, lead maxillofacial surgeon at NMDC"
-                   className="w-full h-[560px] object-cover"
-                   loading="lazy"
-                   decoding="async"
-                 />
-                 <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4">
-                   <p className="font-display text-lg text-black">Dr Brig Nazeer</p>
-                   <p className="text-[11px] uppercase tracking-[0.25em] text-gray-600">
-                     Maxillofacial Surgeon · Founder
-                   </p>
-                 </div>
-               </div>
-             </div>
+            <div className="relative mx-auto max-w-md">
+              {/* Main image container */}
+              <div className="relative overflow-hidden rounded-[2rem] shadow-luxury border border-white/60">
+                <img
+                  src={drNazeer}
+                  alt="Dr Brig Nazeer, lead maxillofacial surgeon at NMDC"
+                  className="w-full h-[560px] object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4">
+                  <p className="font-display text-lg text-black">Dr Brig Nazeer</p>
+                  <p className="text-[11px] uppercase tracking-[0.25em] text-gray-600">
+                    Maxillofacial Surgeon · Founder
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -277,9 +340,13 @@ function Home() {
               { n: 99, s: "%", label: "Patient Satisfaction" },
             ].map((c, i) => (
               <Reveal key={i} delay={i * 0.05} className="text-center md:text-left">
-                <p className="font-display text-4xl md:text-5xl text-charcoal">                  <Counter to={c.n} suffix={c.s} />
+                <p className="font-display text-4xl md:text-5xl text-charcoal">
+                  {" "}
+                  <Counter to={c.n} suffix={c.s} />
                 </p>
-                <p className="mt-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{c.label}</p>
+                <p className="mt-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                  {c.label}
+                </p>
               </Reveal>
             ))}
           </div>
@@ -299,7 +366,8 @@ function Home() {
               className="w-full h-[520px] object-cover rounded-[2rem] shadow-soft"
             />
             <div className="absolute -bottom-8 -right-6 glass rounded-2xl p-6 w-56 hidden md:block">
-              <p className="font-display text-3xl text-red-600">A+</p>              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-gray-600">
+              <p className="font-display text-3xl text-red-600">A+</p>{" "}
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-gray-600">
                 Quality Standard
               </p>
             </div>
@@ -309,21 +377,26 @@ function Home() {
           <Reveal>
             <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">About NMDC</span>
             <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold leading-tight">
-              Surgical precision,<br />delivered with quiet warmth.
+              Surgical precision,
+              <br />
+              delivered with quiet warmth.
             </h2>
-            <p className="mt-6 text-charcoal/75 leading-relaxed">              Founded by Dr Brig Nazeer, NMDC is built on a single belief — that
-              advanced medicine should feel calm, considered, and deeply personal.
-              Our team combines decades of maxillofacial expertise with the
-              hospitality of a private studio.
+            <p className="mt-6 text-charcoal/75 leading-relaxed">
+              {" "}
+              Founded by Dr Brig Nazeer, NMDC is built on a single belief — that advanced medicine
+              should feel calm, considered, and deeply personal. Our team combines decades of
+              maxillofacial expertise with the hospitality of a private studio.
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-black/75">              {[
+            <ul className="mt-8 space-y-3 text-sm text-black/75">
+              {" "}
+              {[
                 "Fellowship-trained maxillofacial surgeon",
                 "Former senior consultant, Armed Forces medical services",
                 "Member, Pakistan Association of Oral & Maxillofacial Surgeons",
                 "Over 5,000 successful procedures performed",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-red-600" />                  {t}
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-red-600" /> {t}
                 </li>
               ))}
             </ul>
@@ -335,8 +408,12 @@ function Home() {
       <section className="bg-white/60 border-y border-border/60">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-28">
           <Reveal className="max-w-2xl">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">Why Choose Us</span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">              The standard we hold ourselves to.
+            <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+              Why Choose Us
+            </span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+              {" "}
+              The standard we hold ourselves to.
             </h2>
           </Reveal>
           <div className="mt-16 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
@@ -347,7 +424,8 @@ function Home() {
                     <r.icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-6 font-display text-xl text-black">{r.title}</h3>
-                  <p className="mt-3 text-sm text-black/70 leading-relaxed">{r.body}</p>                </div>
+                  <p className="mt-3 text-sm text-black/70 leading-relaxed">{r.body}</p>{" "}
+                </div>
               </Reveal>
             ))}
           </div>
@@ -359,12 +437,12 @@ function Home() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal>
             <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">Services</span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold max-w-2xl">              A complete spectrum of dental &amp; facial care.
+            <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold max-w-2xl">
+              {" "}
+              A complete spectrum of dental &amp; facial care.
             </h2>
           </Reveal>
-          <Link
-            to="/services"
-            className="link-underline text-sm tracking-wide text-charcoal/80"          >
+          <Link to="/services" className="link-underline text-sm tracking-wide text-charcoal/80">
             View all services →
           </Link>
         </div>
@@ -377,7 +455,9 @@ function Home() {
               >
                 <p className="font-display text-2xl text-black">{s.title}</p>
                 <p className="mt-3 text-sm text-black/70 leading-relaxed">{s.body}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-red-600">                  Learn more <ArrowRight className="h-3 w-3" />
+                <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-red-600">
+                  {" "}
+                  Learn more <ArrowRight className="h-3 w-3" />
                 </span>
               </Link>
             </Reveal>
@@ -388,10 +468,16 @@ function Home() {
       {/* TREATMENT JOURNEY */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-28">
         <Reveal className="max-w-2xl">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">PATIENT EXPERIENCE</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">Your Treatment Journey</h2>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+            PATIENT EXPERIENCE
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+            Your Treatment Journey
+          </h2>
           <p className="mt-6 max-w-3xl text-black/70 leading-relaxed">
-            A carefully guided experience designed around comfort, precision, and exceptional outcomes. Every stage of treatment is planned with clarity, safety, and personalised attention.
+            A carefully guided experience designed around comfort, precision, and exceptional
+            outcomes. Every stage of treatment is planned with clarity, safety, and personalised
+            attention.
           </p>
         </Reveal>
         <div className="relative mt-14 lg:mt-20">
@@ -404,9 +490,13 @@ function Home() {
                   <div className="flex h-14 w-14 items-center justify-center rounded-3xl border border-border bg-blue-50 text-red-600">
                     <item.icon className="h-6 w-6" />
                   </div>
-                  <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-red-600">{item.step}</p>
+                  <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-red-600">
+                    {item.step}
+                  </p>
                   <h3 className="mt-3 font-display text-xl text-black">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-charcoal/75">{item.description}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-charcoal/75">
+                    {item.description}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -417,10 +507,15 @@ function Home() {
       {/* WHY ORAL HEALTH MATTERS */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-28 bg-white/80">
         <Reveal className="max-w-2xl">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">PATIENT EDUCATION</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">Why Oral Health Matters</h2>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+            PATIENT EDUCATION
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+            Why Oral Health Matters
+          </h2>
           <p className="mt-6 max-w-3xl text-black/70 leading-relaxed">
-            Oral health influences far more than your smile. It impacts overall wellbeing, confidence, daily comfort, and long-term quality of life.
+            Oral health influences far more than your smile. It impacts overall wellbeing,
+            confidence, daily comfort, and long-term quality of life.
           </p>
         </Reveal>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -446,7 +541,8 @@ function Home() {
             Learn from our specialists.
           </h2>
           <p className="mt-6 text-black/70 leading-relaxed">
-            Watch professional educational videos on dental care, treatment procedures, and post-operative guidance.
+            Watch professional educational videos on dental care, treatment procedures, and
+            post-operative guidance.
           </p>
         </Reveal>
 
@@ -464,7 +560,9 @@ function Home() {
                 <div className="relative aspect-video bg-gradient-to-br from-black/80 to-gray-800 flex items-center justify-center">
                   <div className="absolute inset-0 grid place-items-center">
                     <div className="grid h-16 w-16 place-items-center rounded-full bg-red-600 text-white transition-transform group-hover:scale-110">
-                      <svg className="h-6 w-6 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                      <svg className="h-6 w-6 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </div>
                   </div>
                 </div>
@@ -490,26 +588,34 @@ function Home() {
       {/* TRUST & RESULTS */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-28 bg-white/90">
         <Reveal className="max-w-2xl">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">TRUST & RESULTS</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">Trusted By Patients Across Pakistan</h2>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+            TRUST & RESULTS
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+            Trusted By Patients Across Pakistan
+          </h2>
           <p className="mt-6 max-w-3xl text-black/70 leading-relaxed">
-            Decades of experience, thousands of successful treatments, and a commitment to exceptional patient care have earned the trust of patients from across the country.
+            Decades of experience, thousands of successful treatments, and a commitment to
+            exceptional patient care have earned the trust of patients from across the country.
           </p>
         </Reveal>
         <div className="mt-14 grid gap-3 sm:gap-6 grid-cols-2 lg:grid-cols-4">
           {trustStats.map((stat, index) => (
-              <Reveal key={stat.label} delay={index * 0.02}>
-                <div className="rounded-[2rem] border border-border bg-white/95 p-6 shadow-soft backdrop-blur-sm transition-all duration-200">
+            <Reveal key={stat.label} delay={index * 0.02}>
+              <div className="rounded-[2rem] border border-border bg-white/95 p-6 shadow-soft backdrop-blur-sm transition-all duration-200">
                 <p className="text-xs uppercase tracking-[0.3em] text-red-600">{stat.label}</p>
-                <p className="mt-6 font-display text-4xl text-black">{stat.value.toLocaleString()}{stat.suffix}</p>
+                <p className="mt-6 font-display text-4xl text-black">
+                  {stat.value.toLocaleString()}
+                  {stat.suffix}
+                </p>
               </div>
             </Reveal>
           ))}
         </div>
         <div className="mt-10 grid gap-3 sm:gap-6 grid-cols-2 lg:grid-cols-3">
           {trustIndicators.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.02}>
-                <div className="group rounded-[2rem] border border-border bg-card p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+            <Reveal key={item.title} delay={index * 0.02}>
+              <div className="group rounded-[2rem] border border-border bg-card p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-blue-50 text-red-600">
                   <item.icon className="h-6 w-6" />
                 </div>
@@ -524,22 +630,30 @@ function Home() {
       {/* TESTIMONIALS */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-28">
         <Reveal className="max-w-2xl">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">Patient Stories</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">            Trusted by thousands across Pakistan.
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+            Patient Stories
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+            {" "}
+            Trusted by thousands across Pakistan.
           </h2>
         </Reveal>
         <div className="mt-14 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
           {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.02}>
-                <div className="h-full rounded-3xl border border-border bg-card p-6 transition-all duration-200">
+            <Reveal key={t.name} delay={i * 0.02}>
+              <div className="h-full rounded-3xl border border-border bg-card p-6 transition-all duration-200">
                 <Quote className="h-6 w-6 text-gold" />
                 <p className="mt-6 text-[15px] leading-relaxed text-charcoal/80">"{t.text}"</p>
                 <div className="mt-8 flex items-center justify-between">
                   <div>
                     <p className="font-display text-lg text-charcoal">{t.name}</p>
-                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t.city}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                      {t.city}
+                    </p>
                   </div>
-                  <div className="flex gap-0.5 text-gold">                    {Array.from({ length: 5 }).map((_, k) => (
+                  <div className="flex gap-0.5 text-gold">
+                    {" "}
+                    {Array.from({ length: 5 }).map((_, k) => (
                       <Star key={k} className="h-3.5 w-3.5 fill-current" />
                     ))}
                   </div>
@@ -553,16 +667,30 @@ function Home() {
       {/* FAQ SECTION */}
       <section className="mx-auto max-w-7xl px-6 lg:px-10 py-28">
         <Reveal className="max-w-3xl">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">COMMON QUESTIONS</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">Frequently Asked Questions</h2>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
+            COMMON QUESTIONS
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl green-bold">
+            Frequently Asked Questions
+          </h2>
           <p className="mt-6 max-w-3xl text-black/70 leading-relaxed">
-            Answers to common questions about treatments, procedures, appointments, and patient care.
+            Answers to common questions about treatments, procedures, appointments, and patient
+            care.
           </p>
         </Reveal>
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_0.9fr]">
-          <Accordion type="single" collapsible defaultValue="item-1" className="space-y-4 rounded-[2rem] border border-border bg-white/90 p-6 shadow-soft">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-1"
+            className="space-y-4 rounded-[2rem] border border-border bg-white/90 p-6 shadow-soft"
+          >
             {faqItems.map((faq, index) => (
-              <AccordionItem value={`item-${index + 1}`} key={faq.question} className="overflow-hidden rounded-[1.75rem] border border-border/80 bg-card">
+              <AccordionItem
+                value={`item-${index + 1}`}
+                key={faq.question}
+                className="overflow-hidden rounded-[1.75rem] border border-border/80 bg-card"
+              >
                 <AccordionTrigger className="px-6 text-left text-sm font-semibold text-charcoal transition-colors hover:text-black">
                   {faq.question}
                 </AccordionTrigger>
@@ -574,9 +702,12 @@ function Home() {
           </Accordion>
           <div className="rounded-[2rem] bg-gradient-to-br from-red-50 to-white border border-border p-10 shadow-soft">
             <p className="text-sm uppercase tracking-[0.3em] text-red-600">Need guidance?</p>
-            <h3 className="mt-4 font-display text-3xl text-black">Speak with our patient care team</h3>
+            <h3 className="mt-4 font-display text-3xl text-black">
+              Speak with our patient care team
+            </h3>
             <p className="mt-4 text-sm text-charcoal/80 leading-relaxed">
-              We help answer questions, coordinate referrals, and support travel arrangements for patients from across Pakistan.
+              We help answer questions, coordinate referrals, and support travel arrangements for
+              patients from across Pakistan.
             </p>
             <Link
               to="/contact"
@@ -592,21 +723,31 @@ function Home() {
       <section className="mx-auto max-w-7xl px-6 lg:px-10 pb-24">
         <Reveal>
           <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-black via-gray-900 to-black px-8 sm:px-16 py-20 text-white">
-            <div aria-hidden className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-red-600/20 blur-3xl" />
-            <div aria-hidden className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl" />
+            <div
+              aria-hidden
+              className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-red-600/20 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl"
+            />
             <div className="relative grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <span className="text-[11px] uppercase tracking-[0.3em] text-red-400">Begin</span>                <h3 className="mt-4 font-display text-4xl md:text-5xl leading-tight text-white">
+                <span className="text-[11px] uppercase tracking-[0.3em] text-red-400">Begin</span>{" "}
+                <h3 className="mt-4 font-display text-4xl md:text-5xl leading-tight text-white">
                   A consultation with quiet confidence.
                 </h3>
               </div>
               <div className="md:text-right">
-                <p className="text-white/70 max-w-md md:ml-auto">                  Reserve a private appointment with Dr Brig Nazeer and discover a calmer
-                  way to receive exceptional dental care.
+                <p className="text-white/70 max-w-md md:ml-auto">
+                  {" "}
+                  Reserve a private appointment with Dr Brig Nazeer and discover a calmer way to
+                  receive exceptional dental care.
                 </p>
                 <Link
                   to="/contact"
-                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-red-600 px-8 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-700 hover:text-white transition-colors"                >
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-red-600 px-8 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-700 hover:text-white transition-colors"
+                >
                   Book Appointment <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

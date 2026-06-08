@@ -331,9 +331,9 @@ function ServicesPage() {
               {/* Heading */}
               <h1 className="mt-8 text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight green-bold">
                 Complete Dental
-<span className="block not-italic font-normal text-red-500">
-                   &amp; Maxillofacial Care
-                 </span>
+                <span className="block not-italic font-normal text-red-500">
+                  &amp; Maxillofacial Care
+                </span>
               </h1>
 
               {/* Description */}
@@ -351,10 +351,10 @@ function ServicesPage() {
                       <button
                         key={t}
                         onClick={() => setTab(t)}
-className={
-  "flex-1 py-3 px-6 rounded-full text-[12px] font-semibold transition-all duration-300 " +
-  (active ? "bg-black text-white" : "text-blue-600 hover:text-black")
-}
+                        className={
+                          "flex-1 py-3 px-6 rounded-full text-[12px] font-semibold transition-all duration-300 " +
+                          (active ? "bg-black text-white" : "text-blue-600 hover:text-black")
+                        }
                       >
                         {t === "dental" ? "DENTAL" : "MAXILLO"}
                       </button>
@@ -403,9 +403,9 @@ className={
               <button
                 key={t}
                 onClick={() => setTab(t)}
-className={`relative px-8 py-3 rounded-full text-sm font-medium capitalize transition-all duration-300 ${
-  tab === t ? "text-white" : "text-blue-600"
-}`}
+                className={`relative px-8 py-3 rounded-full text-sm font-medium capitalize transition-all duration-300 ${
+                  tab === t ? "text-white" : "text-blue-600"
+                }`}
               >
                 {tab === t && (
                   <motion.div
@@ -441,9 +441,9 @@ className={`relative px-8 py-3 rounded-full text-sm font-medium capitalize trans
 
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-<span className="text-[11px] uppercase tracking-[0.3em] text-blue-500">
-                       {tab}
-                     </span>
+                    <span className="text-[11px] uppercase tracking-[0.3em] text-blue-500">
+                      {tab}
+                    </span>
 
                     <div className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:text-white transition">
                       <Plus className="w-5 h-5" />
@@ -506,9 +506,9 @@ className={`relative px-8 py-3 rounded-full text-sm font-medium capitalize trans
                 <X className="w-5 h-5" />
               </button>
 
-<span className="bg-gray-100 px-4 py-2 rounded-full text-xs uppercase tracking-[0.2em] text-blue-600">
-                 {tab}
-               </span>
+              <span className="bg-gray-100 px-4 py-2 rounded-full text-xs uppercase tracking-[0.2em] text-blue-600">
+                {tab}
+              </span>
 
               <h2 className="mt-6 text-5xl font-bold leading-tight">{open.title}</h2>
 

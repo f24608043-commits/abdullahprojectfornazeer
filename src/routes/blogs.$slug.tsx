@@ -20,7 +20,7 @@ function BlogDetailPage() {
         const data = await getPublicBlogBySlug(slug);
         setBlog(data);
       } catch (err) {
-        console.error('Failed to load blog', err);
+        console.error("Failed to load blog", err);
       } finally {
         setLoading(false);
       }
@@ -65,9 +65,7 @@ function BlogDetailPage() {
                 </span>
               </div>
 
-              <h1 className="font-display text-4xl md:text-5xl green-bold mb-6">
-                {blog.title}
-              </h1>
+              <h1 className="font-display text-4xl md:text-5xl green-bold mb-6">{blog.title}</h1>
 
               <div
                 className="prose prose-lg max-w-none"

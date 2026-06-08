@@ -45,7 +45,7 @@ function ContactPage() {
         whatsapp_sent: false,
       });
     } catch (err) {
-      console.error('Failed to save contact form to database', err);
+      console.error("Failed to save contact form to database", err);
       // Continue with WhatsApp redirect even if database save fails
     }
 
@@ -58,9 +58,7 @@ function ContactPage() {
 💉 Service: ${service}
 💬 Message: ${message}`;
 
-    const url = `https://wa.me/923336070227?text=${encodeURIComponent(
-      whatsappMessage
-    )}`;
+    const url = `https://wa.me/923336070227?text=${encodeURIComponent(whatsappMessage)}`;
 
     window.open(url, "_blank");
     setSent(true);
@@ -69,38 +67,48 @@ function ContactPage() {
   return (
     <div className="pt-32 pb-24">
       <section className="mx-auto max-w-7xl px-6 lg:px-10">
-
         {/* HEADER */}
         <Reveal>
-          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">
-            Contact
-          </span>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-red-600">Contact</span>
 
           <h1 className="mt-4 font-display text-5xl md:text-6xl green-bold">
             Reserve a private consultation.
           </h1>
 
           <p className="mt-6 max-w-2xl text-black/70">
-            Reach out by phone or WhatsApp, or use the form below. We respond within one business day.
+            Reach out by phone or WhatsApp, or use the form below. We respond within one business
+            day.
           </p>
         </Reveal>
 
         {/* GRID */}
         <div className="mt-16 grid lg:grid-cols-12 gap-10">
-
           {/* LEFT SIDE */}
           <Reveal className="lg:col-span-5">
             <div className="rounded-[2rem] bg-black text-white p-10 relative overflow-hidden">
-
               <div className="absolute -top-20 -right-20 h-64 w-64 bg-red-600/20 blur-3xl" />
               <p className="font-display text-2xl">Get in touch</p>
 
               <ul className="mt-10 space-y-7">
                 <Item icon={Phone} label="Phone" value="0512715959" href="tel:+92512715959" />
-                <Item icon={MessageCircle} label="WhatsApp" value="0333 6070227" href="https://wa.me/923336070227" />
-                <Item icon={Mail} label="Email" value="nazeermdclinic@gmail.com" href="mailto:nazeermdclinic@gmail.com" />
+                <Item
+                  icon={MessageCircle}
+                  label="WhatsApp"
+                  value="0333 6070227"
+                  href="https://wa.me/923336070227"
+                />
+                <Item
+                  icon={Mail}
+                  label="Email"
+                  value="nazeermdclinic@gmail.com"
+                  href="mailto:nazeermdclinic@gmail.com"
+                />
                 <Item icon={Clock} label="Timings" value="Mon – Sat · 10:00 AM – 11:00 PM" />
-                <Item icon={MapPin} label="Address" value="Office #222, Rafay Mall, Westridge 1, Rawalpindi" />
+                <Item
+                  icon={MapPin}
+                  label="Address"
+                  value="Office #222, Rafay Mall, Westridge 1, Rawalpindi"
+                />
               </ul>
 
               {/* ✅ FIXED MAP (YOUR EXACT CODE) */}
@@ -123,9 +131,7 @@ function ContactPage() {
                   className="absolute inset-0"
                   aria-label="Open NMDC exact location in Google Maps"
                 />
-
               </div>
-
             </div>
           </Reveal>
 
@@ -139,13 +145,9 @@ function ContactPage() {
                 style={{ transformStyle: "preserve-3d" }}
                 className="rounded-[2rem] border border-border bg-card p-10 shadow-soft transform-gpu transition duration-500 ease-out hover:scale-[1.02] hover:[transform:perspective(1400px)_rotateX(3deg)_rotateY(-2deg)] hover:shadow-[0_40px_90px_rgba(0,0,0,0.16)]"
               >
-                <p className="font-display text-2xl text-black">
-                  Book an appointment
-                </p>
+                <p className="font-display text-2xl text-black">Book an appointment</p>
 
-                <p className="mt-2 text-sm text-black/60">
-                  Sent directly to WhatsApp instantly.
-                </p>
+                <p className="mt-2 text-sm text-black/60">Sent directly to WhatsApp instantly.</p>
 
                 <div className="mt-8 grid sm:grid-cols-2 gap-5">
                   <Field name="name" label="Full name" placeholder="Your name" />
@@ -154,45 +156,47 @@ function ContactPage() {
                   <Field name="date" label="Preferred date" type="date" />
                 </div>
 
-              <div className="mt-5">
-                <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                  Service
-                </label>
+                <div className="mt-5">
+                  <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    Service
+                  </label>
 
-                <select name="service" className="mt-3 w-full rounded-2xl border px-5 py-4 text-sm">
-                  <option value="">Select service</option>
-                  <option>Dental Implants</option>
-                  <option>Smile Designing</option>
-                  <option>Veneers</option>
-                  <option>Jaw Surgery</option>
-                  <option>Wisdom Tooth Surgery</option>
-                </select>
-              </div>
+                  <select
+                    name="service"
+                    className="mt-3 w-full rounded-2xl border px-5 py-4 text-sm"
+                  >
+                    <option value="">Select service</option>
+                    <option>Dental Implants</option>
+                    <option>Smile Designing</option>
+                    <option>Veneers</option>
+                    <option>Jaw Surgery</option>
+                    <option>Wisdom Tooth Surgery</option>
+                  </select>
+                </div>
 
-              <div className="mt-5">
-                <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                  Message
-                </label>
+                <div className="mt-5">
+                  <label className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    Message
+                  </label>
 
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Describe your concern..."
-                  className="mt-3 w-full rounded-2xl border px-5 py-4 text-sm resize-none"
-                />
-              </div>
+                  <textarea
+                    name="message"
+                    rows={5}
+                    placeholder="Describe your concern..."
+                    className="mt-3 w-full rounded-2xl border px-5 py-4 text-sm resize-none"
+                  />
+                </div>
 
-              <button
-                type="submit"
-                className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition"
-              >
-                {sent ? "Opening WhatsApp..." : "Request Appointment"}
-              </button>
-            </form>
-          </div>
-        </Reveal>
-
-      </div>
+                <button
+                  type="submit"
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 text-xs uppercase tracking-[0.25em] text-white hover:bg-red-600 transition"
+                >
+                  {sent ? "Opening WhatsApp..." : "Request Appointment"}
+                </button>
+              </form>
+            </div>
+          </Reveal>
+        </div>
       </section>
     </div>
   );
@@ -202,7 +206,9 @@ function ContactPage() {
 function Item({ icon: Icon, label, value, href }: any) {
   return (
     <li className="flex items-center gap-4">
-      <span className="grid h-11 w-11 place-items-center rounded-full border border-white/10 text-red-600">        <Icon className="h-4 w-4" />
+      <span className="grid h-11 w-11 place-items-center rounded-full border border-white/10 text-red-600">
+        {" "}
+        <Icon className="h-4 w-4" />
       </span>
       <div>
         <p className="text-[10px] uppercase text-white/50">{label}</p>

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import { cn } from '@/lib/utils';
-import * as THREE from 'three';
+import React, { useEffect, useRef, useCallback } from "react";
+import { cn } from "@/lib/utils";
+import * as THREE from "three";
 
 export interface WoofyHoverImageProps {
   src: string;
@@ -9,7 +9,7 @@ export interface WoofyHoverImageProps {
   height?: number | string;
   className?: string;
   // Changed 'blackwhite' to 'blackWhite' to match common casing and usage
-  effectType?: 'inversion' | 'blackWhite' | 'sepia' | 'duotone' | 'pixelate' | 'blur';
+  effectType?: "inversion" | "blackWhite" | "sepia" | "duotone" | "pixelate" | "blur";
   maskRadius?: number;
   turbulenceIntensity?: number;
   animationSpeed?: number;
@@ -25,11 +25,11 @@ export interface WoofyHoverImageProps {
 
 const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
   src,
-  alt = '',
-  width = 'auto',
+  alt = "",
+  width = "auto",
   height = 400,
   className,
-  effectType = 'inversion',
+  effectType = "inversion",
   maskRadius = 0.35,
   turbulenceIntensity = 0.225,
   animationSpeed = 1.0,
@@ -37,8 +37,8 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
   disappearDuration = 0.3,
   effectIntensity = 0.5,
   invertMask = false,
-  duotoneColor1 = '#3366cc',
-  duotoneColor2 = '#e63333',
+  duotoneColor1 = "#3366cc",
+  duotoneColor2 = "#e63333",
   onHover,
   onLeave,
 }) => {
@@ -256,12 +256,18 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
 
   const getEffectTypeValue = (type: string): number => {
     switch (type) {
-      case 'blackWhite': return 1;
-      case 'sepia': return 2;
-      case 'duotone': return 3;
-      case 'pixelate': return 4;
-      case 'blur': return 5;
-      default: return 0; // inversion
+      case "blackWhite":
+        return 1;
+      case "sepia":
+        return 2;
+      case "duotone":
+        return 3;
+      case "pixelate":
+        return 4;
+      case "blur":
+        return 5;
+      default:
+        return 0; // inversion
     }
   };
 
@@ -277,7 +283,7 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
 
     loader.load(src, (texture) => {
       const imageAspect = texture.image.width / texture.image.height;
-      
+
       texture.minFilter = THREE.LinearFilter;
       texture.magFilter = THREE.LinearFilter;
       texture.anisotropy = 8;
@@ -332,18 +338,18 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
       rendererRef.current = renderer;
 
       // Clear any existing canvas
-      const existingCanvas = container.querySelector('canvas');
+      const existingCanvas = container.querySelector("canvas");
       if (existingCanvas) {
         existingCanvas.remove();
       }
 
       container.appendChild(renderer.domElement);
-      renderer.domElement.style.position = 'absolute';
-      renderer.domElement.style.top = '0';
-      renderer.domElement.style.left = '0';
-      renderer.domElement.style.width = '100%';
-      renderer.domElement.style.height = '100%';
-      renderer.domElement.style.zIndex = '1';
+      renderer.domElement.style.position = "absolute";
+      renderer.domElement.style.top = "0";
+      renderer.domElement.style.left = "0";
+      renderer.domElement.style.width = "100%";
+      renderer.domElement.style.height = "100%";
+      renderer.domElement.style.zIndex = "1";
 
       // Animation loop
       const animate = () => {
@@ -362,78 +368,95 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
 
       animate();
     });
-  }, [src, effectType, maskRadius, turbulenceIntensity, animationSpeed, effectIntensity, invertMask, duotoneColor1, duotoneColor2]);
+  }, [
+    src,
+    effectType,
+    maskRadius,
+    turbulenceIntensity,
+    animationSpeed,
+    effectIntensity,
+    invertMask,
+    duotoneColor1,
+    duotoneColor2,
+  ]);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!containerRef.current || !uniformsRef.current) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!containerRef.current || !uniformsRef.current) return;
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const inside = e.clientX >= rect.left && e.clientX <= rect.right && 
-                  e.clientY >= rect.top && e.clientY <= rect.bottom;
+      const rect = containerRef.current.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
 
-    if (inside) {
-      targetMouseRef.current.x = (e.clientX - rect.left) / rect.width;
-      targetMouseRef.current.y = 1.0 - (e.clientY - rect.top) / rect.height;
+      if (inside) {
+        targetMouseRef.current.x = (e.clientX - rect.left) / rect.width;
+        targetMouseRef.current.y = 1.0 - (e.clientY - rect.top) / rect.height;
 
-      if (!isMouseInsideRef.current) {
-        isMouseInsideRef.current = true;
-        onHover?.();
-        
-        // Animate radius to target value
+        if (!isMouseInsideRef.current) {
+          isMouseInsideRef.current = true;
+          onHover?.();
+
+          // Animate radius to target value
+          const startRadius = uniformsRef.current.u_radius.value;
+          const targetRadius = maskRadius;
+          const startTime = Date.now();
+
+          const animateRadius = () => {
+            const elapsed = (Date.now() - startTime) / 1000;
+            const progress = Math.min(elapsed / appearDuration, 1);
+            const easeProgress = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+
+            uniformsRef.current.u_radius.value =
+              startRadius + (targetRadius - startRadius) * easeProgress;
+
+            if (progress < 1) {
+              requestAnimationFrame(animateRadius);
+            }
+          };
+
+          animateRadius();
+        }
+      } else if (isMouseInsideRef.current) {
+        isMouseInsideRef.current = false;
+        onLeave?.();
+
+        // Animate radius to zero
         const startRadius = uniformsRef.current.u_radius.value;
-        const targetRadius = maskRadius;
         const startTime = Date.now();
-        
+
         const animateRadius = () => {
           const elapsed = (Date.now() - startTime) / 1000;
-          const progress = Math.min(elapsed / appearDuration, 1);
-          const easeProgress = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-          
-          uniformsRef.current.u_radius.value = startRadius + (targetRadius - startRadius) * easeProgress;
-          
+          const progress = Math.min(elapsed / disappearDuration, 1);
+          const easeProgress = Math.pow(progress, 3); // ease-in cubic
+
+          uniformsRef.current.u_radius.value = startRadius * (1 - easeProgress);
+
           if (progress < 1) {
             requestAnimationFrame(animateRadius);
           }
         };
-        
+
         animateRadius();
       }
-    } else if (isMouseInsideRef.current) {
-      isMouseInsideRef.current = false;
-      onLeave?.();
-      
-      // Animate radius to zero
-      const startRadius = uniformsRef.current.u_radius.value;
-      const startTime = Date.now();
-      
-      const animateRadius = () => {
-        const elapsed = (Date.now() - startTime) / 1000;
-        const progress = Math.min(elapsed / disappearDuration, 1);
-        const easeProgress = Math.pow(progress, 3); // ease-in cubic
-        
-        uniformsRef.current.u_radius.value = startRadius * (1 - easeProgress);
-        
-        if (progress < 1) {
-          requestAnimationFrame(animateRadius);
-        }
-      };
-      
-      animateRadius();
-    }
-  }, [maskRadius, appearDuration, disappearDuration, onHover, onLeave]);
+    },
+    [maskRadius, appearDuration, disappearDuration, onHover, onLeave],
+  );
 
   useEffect(() => {
     initializeEffect();
 
-    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      
+      document.removeEventListener("mousemove", handleMouseMove);
+
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current);
       }
-      
+
       if (rendererRef.current) {
         rendererRef.current.dispose();
       }
@@ -443,15 +466,18 @@ const WoofyHoverImage: React.FC<WoofyHoverImageProps> = ({
   return (
     <div
       ref={containerRef}
-      className={cn(`relative overflow-hidden flex 
-        items-center justify-center`, className)}
+      className={cn(
+        `relative overflow-hidden flex 
+        items-center justify-center`,
+        className,
+      )}
       style={{ width, height }}
     >
       <img
         src={src}
         alt={alt}
         className="w-full h-full object-contain object-center"
-        style={{ position: 'absolute', top: 0, left: 0, zIndex: 0, pointerEvents: 'none' }}
+        style={{ position: "absolute", top: 0, left: 0, zIndex: 0, pointerEvents: "none" }}
       />
     </div>
   );

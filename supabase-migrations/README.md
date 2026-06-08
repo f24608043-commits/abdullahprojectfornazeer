@@ -46,14 +46,17 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ### Step 3: Test the Admin Panel
 
 1. Start your development server:
+
    ```bash
    npm run dev
    ```
 
 2. Open your browser and navigate to:
+
    ```
    http://localhost:PORT/brigaidear/login
    ```
+
    (Replace PORT with your dev server port, e.g., 8084)
 
 3. Login with your credentials:
@@ -65,11 +68,13 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ## 📊 Admin Panel Features
 
 ### Dashboard
+
 - Overview statistics (total videos, published, reviews, pending)
 - Quick actions to add videos and manage reviews
 - Recent activity display
 
 ### Videos Management (`/brigaidear/videos`)
+
 - Add new videos (YouTube URL or file upload)
 - Edit existing videos
 - Delete videos
@@ -78,6 +83,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 - Support for both YouTube and local file uploads
 
 ### Reviews Management (`/brigaidear/reviews`)
+
 - View all reviews
 - Filter by status (all, pending, approved)
 - Approve pending reviews
@@ -89,6 +95,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ### Issue: Login fails with "Invalid email or password"
 
 **Solution:**
+
 - Verify the user exists in Supabase Dashboard > Authentication > Users
 - Check that the email is exactly: brigaidearnmdcnazeer@gmail.com
 - Ensure the password is correct: AbdullahNazeer@1221
@@ -97,6 +104,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ### Issue: Can't access admin routes
 
 **Solution:**
+
 - Check that you're logged in (session should be maintained)
 - Clear browser cookies and try again
 - Check browser console for authentication errors
@@ -106,6 +114,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ### Issue: Videos/Reviews not loading
 
 **Solution:**
+
 - Verify tables were created by running: `SELECT * FROM videos;` and `SELECT * FROM reviews;` in SQL Editor
 - Check RLS policies are enabled: `SELECT * FROM pg_policies WHERE tablename IN ('videos', 'reviews');`
 - Ensure you're authenticated when accessing admin routes
@@ -113,6 +122,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ### Issue: File upload not working
 
 **Solution:**
+
 - Verify storage bucket was created: Check Storage > Buckets in Supabase Dashboard
 - Check storage policies are enabled
 - Ensure the bucket is public
@@ -121,6 +131,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ## 🗄️ Database Schema
 
 ### Videos Table
+
 ```sql
 - id (UUID, Primary Key)
 - title (TEXT, Required)
@@ -136,6 +147,7 @@ This guide will help you set up the admin panel for the NMDC website with the pr
 ```
 
 ### Reviews Table
+
 ```sql
 - id (UUID, Primary Key)
 - author_name (TEXT, Required)

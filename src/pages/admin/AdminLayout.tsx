@@ -1,153 +1,173 @@
 // src/pages/admin/AdminLayout.tsx
-import { useLocation, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
+import { useLocation, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase client
-const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || ''
-const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+const supabaseUrl =
+  import.meta.env.NEXT_PUBLIC_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "";
+const supabaseAnonKey =
+  import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  "";
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function AdminLayout({ children }: Props) {
-    const location = useLocation()
-    const navigate = useNavigate()
-    const [user, setUser] = useState<any>(null)
-    const [loading, setLoading] = useState(true)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Get initial session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null)
-            setLoading(false)
-        })
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-        // Listen for auth changes (login/logout)
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null)
-            if (!session) {
-                // Auto-redirect to login if logged out
-                navigate({ to: '/brigaidear/login', replace: true })
-            }
-        })
+    // Listen for auth changes (login/logout)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (!session) {
+        // Auto-redirect to login if logged out
+        navigate({ to: "/brigaidear/login", replace: true });
+      }
+    });
 
-        return () => subscription.unsubscribe()
-    }, [navigate])
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
-    const handleLogout = async () => {
-        await supabase.auth.signOut()
-        navigate({ to: '/brigaidear/login', replace: true })
-    }
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/brigaidear/login", replace: true });
+  };
 
-    // Show loading while checking auth
-    if (loading) {
-        return (
-            <div style={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#f8fafc',
-                color: '#64748b'
-            }}>
-                Loading admin...
-            </div>
-        )
-    }
-
-    // Redirect to login if not authenticated
-    if (!user) {
-        navigate({ to: '/brigaidear/login', replace: true })
-        return null
-    }
-
-    const adminEmail = user.email || 'admin'
-    const adminName = user.user_metadata?.name || 'Administrator'
-
-    const navItems = [
-        { path: '/brigaidear/dashboard', label: 'Dashboard', icon: '📊' },
-        { path: '/brigaidear/videos', label: 'Videos', icon: '🎬' },
-        { path: '/brigaidear/reviews', label: 'Reviews', icon: '⭐' },
-        { path: '/brigaidear/blogs', label: 'Blogs', icon: '📝' },
-        { path: '/brigaidear/contact', label: 'Contact', icon: '📧' },
-        { path: '/brigaidear/bookappointment', label: 'Appointments', icon: '📅' },
-    ]
-
-    const sidebarStyle: React.CSSProperties = {
-        width: '250px',
-        background: '#1e293b',
-        color: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        flexShrink: 0,
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        height: '100vh',
-        zIndex: 50,
-    }
-
+  // Show loading while checking auth
+  if (loading) {
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'sans-serif', background: '#f8fafc' }}>
-            {/* Sidebar */}
-            <div style={sidebarStyle}>
-                <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155' }}>
-                    <div style={{ fontWeight: 700, fontSize: '1.1rem', color: 'white' }}>NMDC Admin</div>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>{adminEmail}</div>
-                </div>
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#f8fafc",
+          color: "#64748b",
+        }}
+      >
+        Loading admin...
+      </div>
+    );
+  }
 
-                <nav style={{ flex: 1, padding: '1rem 0.75rem' }}>
-                    {navItems.map(item => {
-                        const active = location.pathname === item.path
-                        const linkStyle: React.CSSProperties = {
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.75rem',
-                            padding: '0.7rem 0.75rem',
-                            borderRadius: '8px',
-                            color: active ? 'white' : '#94a3b8',
-                            background: active ? '#2563eb' : 'transparent',
-                            textDecoration: 'none',
-                            marginBottom: '0.25rem',
-                            fontSize: '0.9rem',
-                            fontWeight: active ? 600 : 400,
-                        }
-                        return (
-                            <a href={item.path} key={item.path} style={linkStyle}>
-                                <span>{item.icon}</span>
-                                {item.label}
-                            </a>
-                        )
-                    })}
-                </nav>
+  // Redirect to login if not authenticated
+  if (!user) {
+    navigate({ to: "/brigaidear/login", replace: true });
+    return null;
+  }
 
-                <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid #334155' }}>
-                    <div style={{ marginBottom: '0.75rem' }}>
-                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>{adminName}</div>
-                        <div style={{ fontSize: '0.72rem', color: '#64748b' }}>Administrator</div>
-                    </div>
-                    <button
-                        onClick={handleLogout}                        style={{
-                            width: '100%',
-                            padding: '0.5rem',
-                            background: 'transparent',
-                            color: '#94a3b8',
-                            border: '1px solid #334155',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '0.875rem'
-                        }}
-                    >
-                        Sign Out                    </button>
-                </div>
-            </div>
+  const adminEmail = user.email || "admin";
+  const adminName = user.user_metadata?.name || "Administrator";
 
-            {/* Main Content */}
-            <div style={{ flex: 1, marginLeft: '250px', overflow: 'auto', minHeight: '100vh' }}>
-                {children}            </div>
+  const navItems = [
+    { path: "/brigaidear/dashboard", label: "Dashboard", icon: "📊" },
+    { path: "/brigaidear/videos", label: "Videos", icon: "🎬" },
+    { path: "/brigaidear/reviews", label: "Reviews", icon: "⭐" },
+    { path: "/brigaidear/blogs", label: "Blogs", icon: "📝" },
+    { path: "/brigaidear/contact", label: "Contact", icon: "📧" },
+    { path: "/brigaidear/bookappointment", label: "Appointments", icon: "📅" },
+  ];
+
+  const sidebarStyle: React.CSSProperties = {
+    width: "250px",
+    background: "#1e293b",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    flexShrink: 0,
+    position: "fixed",
+    top: 0,
+    left: 0,
+    height: "100vh",
+    zIndex: 50,
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        fontFamily: "sans-serif",
+        background: "#f8fafc",
+      }}
+    >
+      {/* Sidebar */}
+      <div style={sidebarStyle}>
+        <div style={{ padding: "1.5rem", borderBottom: "1px solid #334155" }}>
+          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "white" }}>NMDC Admin</div>
+          <div style={{ fontSize: "0.75rem", color: "#94a3b8", marginTop: "0.25rem" }}>
+            {adminEmail}
+          </div>
         </div>
-    )
+
+        <nav style={{ flex: 1, padding: "1rem 0.75rem" }}>
+          {navItems.map((item) => {
+            const active = location.pathname === item.path;
+            const linkStyle: React.CSSProperties = {
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "0.7rem 0.75rem",
+              borderRadius: "8px",
+              color: active ? "white" : "#94a3b8",
+              background: active ? "#2563eb" : "transparent",
+              textDecoration: "none",
+              marginBottom: "0.25rem",
+              fontSize: "0.9rem",
+              fontWeight: active ? 600 : 400,
+            };
+            return (
+              <a href={item.path} key={item.path} style={linkStyle}>
+                <span>{item.icon}</span>
+                {item.label}
+              </a>
+            );
+          })}
+        </nav>
+
+        <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid #334155" }}>
+          <div style={{ marginBottom: "0.75rem" }}>
+            <div style={{ fontSize: "0.875rem", fontWeight: 600, color: "white" }}>{adminName}</div>
+            <div style={{ fontSize: "0.72rem", color: "#64748b" }}>Administrator</div>
+          </div>
+          <button
+            onClick={handleLogout}
+            style={{
+              width: "100%",
+              padding: "0.5rem",
+              background: "transparent",
+              color: "#94a3b8",
+              border: "1px solid #334155",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontSize: "0.875rem",
+            }}
+          >
+            Sign Out{" "}
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, marginLeft: "250px", overflow: "auto", minHeight: "100vh" }}>
+        {children}{" "}
+      </div>
+    </div>
+  );
 }
