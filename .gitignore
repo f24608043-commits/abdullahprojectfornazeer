@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-# dist (removed - Vercel needs built files from git)
+dist
 dist-ssr
 .output
 .vinxi
