@@ -1,6 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
-import AdminAppointments from "@/pages/admin/AdminAppointments";
+import AdminAppointments from "@/pages/admin/AdminAppointments.tsx";
 
-export const Route = createFileRoute("/brigaidear/bookappointment")({
-  component: AdminAppointments,
-});
+export default AdminAppointments;

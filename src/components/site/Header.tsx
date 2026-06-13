@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -73,9 +73,6 @@ export function Header() {
               <Link
                 key={l.to}
                 to={l.to}
-                activeOptions={{
-                  exact: l.to === "/",
-                }}
                 className="link-underline text-sm tracking-wide text-charcoal/80 hover:text-charcoal transition-colors"
               >
                 {l.label}

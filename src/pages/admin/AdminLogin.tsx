@@ -1,6 +1,6 @@
 // src/pages/admin/AdminLogin.tsx
 import { useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase client
@@ -35,7 +35,7 @@ export default function AdminLogin() {
       if (!data.user) throw new Error("Login failed");
 
       // ✅ Supabase auto-saves session - just redirect
-      navigate({ to: "/brigaidear/dashboard" });
+      navigate("/brigaidear/dashboard");
     } catch (err: any) {
       console.error("Login error:", err);
       setError("Invalid email or password");

@@ -1,20 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Reveal } from "@/components/site/Reveal";
-import { getPublicBlogBySlug } from "@/api/adminApi";
+import { useParams, Link } from "react-router-dom";
+import { Reveal } from "@/components/site/Reveal.tsx";
+import { getPublicBlogBySlug } from "@/api/adminApi.ts";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/blogs/$slug")({
-  component: BlogDetailPage,
-});
 
 function BlogDetailPage() {
-  const { slug } = Route.useParams();
+  const { slug } = useParams<{ slug: string }>();
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!slug) return;
     const loadBlog = async () => {
       try {
         const data = await getPublicBlogBySlug(slug);
@@ -78,3 +74,5 @@ function BlogDetailPage() {
     </div>
   );
 }
+
+export default BlogDetailPage;

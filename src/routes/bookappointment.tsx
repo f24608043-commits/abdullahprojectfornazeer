@@ -1,22 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal } from "@/components/site/Reveal.tsx";
 import { Calendar, Clock, User, Mail, Phone, MessageSquare, CheckCircle } from "lucide-react";
-import { submitAppointmentBooking } from "@/api/adminApi";
-
-export const Route = createFileRoute("/bookappointment")({
-  head: () => ({
-    meta: [
-      { title: "Book Appointment — NMDC | Dr Brig Nazeer" },
-      {
-        name: "description",
-        content:
-          "Book a private appointment with Dr Brig Nazeer at NMDC. Fill out the form and we'll confirm via WhatsApp.",
-      },
-    ],
-  }),
-  component: BookAppointmentPage,
-});
+import { submitAppointmentBooking } from "@/api/adminApi.ts";
 
 function BookAppointmentPage() {
   const phoneDigits = "923336070227";
@@ -403,3 +388,5 @@ function TextAreaField({
     </div>
   );
 }
+
+export default BookAppointmentPage;

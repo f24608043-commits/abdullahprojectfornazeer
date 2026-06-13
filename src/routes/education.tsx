@@ -1,13 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Play, BookOpen, Search } from "lucide-react";
 import { useMemo, useRef, useState, useEffect } from "react";
-import { Reveal } from "@/components/site/Reveal";
-import { getPublicVideos, getPublicBlogs } from "@/api/adminApi";
-
-export const Route = createFileRoute("/education")({
-  component: EducationPage,
-});
+import { Reveal } from "@/components/site/Reveal.tsx";
+import { getPublicVideos, getPublicBlogs } from "@/api/adminApi.ts";
 
 /* =========================================================
    🎥 VIDEOS DATA
@@ -413,8 +409,7 @@ function EducationPage() {
             {filteredArticles.map((a, idx) => (
               <Link
                 key={a.id}
-                to="/blogs/$slug"
-                params={{ slug: a.seo_slug }}
+                to={`/blogs/${a.seo_slug}`}
                 className="group cursor-pointer"
               >
                 <motion.div
@@ -460,3 +455,5 @@ function EducationPage() {
     </div>
   );
 }
+
+export default EducationPage;

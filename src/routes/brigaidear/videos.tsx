@@ -1,5 +1,2 @@
-import { createFileRoute } from "@tanstack/react-router";
 import AdminVideos from "../../pages/admin/AdminVideos";
-export const Route = createFileRoute("/brigaidear/videos")({
-  component: AdminVideos,
-});
+export default AdminVideos;

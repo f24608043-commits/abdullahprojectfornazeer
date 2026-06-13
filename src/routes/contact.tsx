@@ -1,22 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, MessageCircle, Phone, Clock } from "lucide-react";
 import { useState } from "react";
-import { Reveal } from "@/components/site/Reveal";
-import { submitContactForm } from "@/api/adminApi";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact & Book Appointment | NMDC" },
-      {
-        name: "description",
-        content:
-          "Contact NMDC and book a private appointment with Brig Dr Nazeer. Phone 0333 6070227 or WhatsApp.",
-      },
-    ],
-  }),
-  component: ContactPage,
-});
+import { Reveal } from "@/components/site/Reveal.tsx";
+import { submitContactForm } from "@/api/adminApi.ts";
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -235,3 +220,5 @@ function Field({ name, label, placeholder, type = "text" }: any) {
     </div>
   );
 }
+
+export default ContactPage;

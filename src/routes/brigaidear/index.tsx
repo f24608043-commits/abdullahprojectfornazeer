@@ -1,7 +1,7 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { Navigate } from "react-router-dom";
 
-export const Route = createFileRoute("/brigaidear/")({
-  beforeLoad: () => {
-    throw redirect({ to: "/brigaidear/login" });
-  },
-});
+function BrigaidearIndex() {
+  return <Navigate to="/brigaidear/login" replace />;
+}
+
+export default BrigaidearIndex;

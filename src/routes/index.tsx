@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -20,32 +20,11 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/accordion.tsx";
 import drNazeer from "@/assets/dr-nazeer.jpg";
 import clinic from "@/assets/clinic.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
-import { Counter, Reveal } from "@/components/site/Reveal";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "NMDC — Advanced Dental & Maxillofacial Care | Dr Brig Nazeer" },
-      {
-        name: "description",
-        content:
-          "NMDC, led by Dr Brig Nazeer, delivers premium dental implants, smile design and maxillofacial surgery with a discreet, luxury standard of care.",
-      },
-      { property: "og:title", content: "NMDC — Advanced Dental & Maxillofacial Care" },
-      {
-        property: "og:description",
-        content: "Premium dental and maxillofacial care led by Dr Brig Nazeer.",
-      },
-      { property: "og:url", content: "/" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-  }),
-  component: Home,
-});
+import { Counter, Reveal } from "@/components/site/Reveal.tsx";
 
 const reasons = [
   {
@@ -758,3 +737,5 @@ function Home() {
     </>
   );
 }
+
+export default Home;

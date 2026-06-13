@@ -1,7 +1,7 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { Navigate } from "react-router-dom";
 
-export const Route = createFileRoute("/admin/")({
-  beforeLoad: () => {
-    throw redirect({ to: "/admin/login" });
-  },
-});
+function AdminIndex() {
+  return <Navigate to="/admin/login" replace />;
+}
+
+export default AdminIndex;

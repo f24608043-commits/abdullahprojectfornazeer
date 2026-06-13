@@ -1,5 +1,5 @@
 // src/pages/admin/AdminLayout.tsx
-import { useLocation, useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
@@ -12,11 +12,7 @@ const supabaseAnonKey =
   "";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export default function AdminLayout({ children }: Props) {
+export default function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
@@ -36,7 +32,7 @@ export default function AdminLayout({ children }: Props) {
       setUser(session?.user ?? null);
       if (!session) {
         // Auto-redirect to login if logged out
-        navigate({ to: "/brigaidear/login", replace: true });
+        navigate("/brigaidear/login", { replace: true });
       }
     });
 
@@ -45,7 +41,7 @@ export default function AdminLayout({ children }: Props) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate({ to: "/brigaidear/login", replace: true });
+    navigate("/brigaidear/login", { replace: true });
   };
 
   // Show loading while checking auth
@@ -68,7 +64,7 @@ export default function AdminLayout({ children }: Props) {
 
   // Redirect to login if not authenticated
   if (!user) {
-    navigate({ to: "/brigaidear/login", replace: true });
+    navigate("/brigaidear/login", { replace: true });
     return null;
   }
 
@@ -166,7 +162,7 @@ export default function AdminLayout({ children }: Props) {
 
       {/* Main Content */}
       <div style={{ flex: 1, marginLeft: "250px", overflow: "auto", minHeight: "100vh" }}>
-        {children}{" "}
+        <Outlet />
       </div>
     </div>
   );

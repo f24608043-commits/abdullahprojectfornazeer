@@ -1,38 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Plus, Sparkles, ShieldCheck, HeartPulse } from "lucide-react";
 import { useState } from "react";
-import { Reveal } from "@/components/site/Reveal";
-
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      {
-        title: "Services — Dental & Maxillofacial | NMDC",
-      },
-      {
-        name: "description",
-        content:
-          "Complete dental and maxillofacial services including implants, smile design, jaw surgery, facial trauma care, orthodontics and cosmetic dentistry at NMDC.",
-      },
-      {
-        property: "og:title",
-        content: "Services — NMDC",
-      },
-      {
-        property: "og:description",
-        content: "Comprehensive dental and maxillofacial treatments at NMDC.",
-      },
-      {
-        property: "og:url",
-        content: "/services",
-      },
-    ],
-    links: [{ rel: "canonical", href: "/services" }],
-  }),
-
-  component: ServicesPage,
-});
+import { Reveal } from "@/components/site/Reveal.tsx";
 
 /* =========================================================
    TYPES
@@ -578,3 +547,5 @@ function ServicesPage() {
     </div>
   );
 }
+
+export default ServicesPage;

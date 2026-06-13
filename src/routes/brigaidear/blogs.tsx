@@ -1,6 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
-import AdminBlogs from "@/pages/admin/AdminBlogs";
+import AdminBlogs from "@/pages/admin/AdminBlogs.tsx";
 
-export const Route = createFileRoute("/brigaidear/blogs")({
-  component: AdminBlogs,
-});
+export default AdminBlogs;

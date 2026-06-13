@@ -1,6 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
-import AdminContact from "@/pages/admin/AdminContact";
+import AdminContact from "@/pages/admin/AdminContact.tsx";
 
-export const Route = createFileRoute("/brigaidear/contact")({
-  component: AdminContact,
-});
+export default AdminContact;

@@ -1,26 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Reveal } from "@/components/site/Reveal";
-import { getPublicReviews, submitReview } from "@/api/adminApi";
-
-export const Route = createFileRoute("/reviews")({
-  head: () => ({
-    meta: [
-      { title: "Patient Reviews — NMDC | Dr Brig Nazeer" },
-      {
-        name: "description",
-        content:
-          "Read genuine reviews from patients across Pakistan about their experience at NMDC.",
-      },
-      { property: "og:title", content: "Patient Reviews — NMDC" },
-      { property: "og:url", content: "/reviews" },
-    ],
-    links: [{ rel: "canonical", href: "/reviews" }],
-  }),
-  component: ReviewsPage,
-});
+import { Reveal } from "@/components/site/Reveal.tsx";
+import { getPublicReviews, submitReview } from "@/api/adminApi.ts";
 
 const cities = [
   "Islamabad",
@@ -449,10 +431,12 @@ function Field({
   label,
   placeholder,
   type = "text",
+  name,
 }: {
   label: string;
   placeholder: string;
   type?: string;
+  name?: string;
 }) {
   return (
     <div>
@@ -468,3 +452,5 @@ function Field({
     </div>
   );
 }
+
+export default ReviewsPage;
